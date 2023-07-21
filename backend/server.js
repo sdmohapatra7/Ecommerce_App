@@ -1,12 +1,11 @@
 require('dotenv').config({path:'backend/.env'});
 const app = require('./app');
-
 //handle Uncaught exception
 process.on("uncaughtException",(err)=>{
     console.log(`Error: ${err.message}`);
     console.log(`Shutting Down The Server Due To Uncaught Exception`);
     process.exit(1);
-})
+});
 
 const connectDataase = require('./config/database');
 connectDataase();
