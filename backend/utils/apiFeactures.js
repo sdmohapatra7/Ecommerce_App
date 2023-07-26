@@ -11,7 +11,7 @@ class ApiFeactures {
                 $options: "i"
             }
         } : {};
-        console.log(keyword);
+        // console.log(keyword);
 
         this.query = this.query.find({...keyword});
         return this;
@@ -19,11 +19,11 @@ class ApiFeactures {
 
     filter(){
         const queryCopy = { ...this.queryStr };
-        console.log(queryCopy);
+        // console.log(queryCopy);
         //removing some filds for category
         const removeFields = ['keyword','page','limit'];
         removeFields.forEach((key)=> delete queryCopy[key]);
-        console.log(queryCopy);
+        // console.log(queryCopy);
 
         //filter for priceing and rating
         let queryStr = JSON.stringify(queryCopy); //convert to string
@@ -31,7 +31,7 @@ class ApiFeactures {
         //put thr doller sign before gt,gte,lt,and lte for filtering price (mongodb)
 
         this.query = this.query.find(JSON.parse(queryStr)); //find the query as well as convert to object
-        console.log(queryStr);
+        // console.log(queryStr);
         return this;
     }
 
@@ -41,7 +41,7 @@ class ApiFeactures {
         const skip = resultPerPage * (currentPage - 1);
 
         this.query = this.query.limit(resultPerPage).skip(skip);
-        console.log(this.queryStr);
+        // console.log(this.queryStr);
         return this;
 
     }
