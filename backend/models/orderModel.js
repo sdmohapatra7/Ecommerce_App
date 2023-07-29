@@ -22,8 +22,12 @@ const orderSchema = new mongoose.Schema({
             type:Number,
             required: true
         },
+        phoneNo:{
+            type: Number,
+            required: true
+        }
     },
-    orderInfo:[
+    orderItems:[
         {
             name:{
                 type: String,
@@ -69,22 +73,22 @@ const orderSchema = new mongoose.Schema({
     },
     itemsPrice:{
         type:Number,
-        default: true,
+        default: 0,
         required: true
     },
     taxPrice:{
         type:Number,
-        default: true,
+        default: 0,
         required: true
     },
     shippingPrice:{
         type:Number,
-        default: true,
+        default: 0,
         required: true
     },
     totalPrice:{
         type:Number,
-        default: true,
+        default: 0,
         required: true
     },
     orderStatus:{
