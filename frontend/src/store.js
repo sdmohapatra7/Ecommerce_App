@@ -2,13 +2,12 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
-// Import your reducers here
+import { productReducer } from './reducers/productReducer';
 
 
 // Combine your reducers using combineReducers
 const rootReducer = combineReducers({
-    some: "someReducer",
+    products: productReducer,
     // Add more reducers here
 });
 
