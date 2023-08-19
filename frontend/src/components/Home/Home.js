@@ -4,7 +4,7 @@ import "./Home.css";
 import Product from './Product.js';
 import MetaData from '../layout/MetaData';
 
-import { getProduct } from '../../actions/productAction';
+import { getProduct,clearErrors } from '../../actions/productAction';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
@@ -19,16 +19,20 @@ import { useAlert } from 'react-alert';
 export default function Home() {
     const alert = useAlert();
     const dispatch = useDispatch();
-    const { loading, error, products, productsCount } = useSelector(
+    const { loading, error, products } = useSelector(
         (state) => state.products
     );
 
-    useEffect(() => {
+    useEffect(()=>{
         if(error){
-            return alert.error(error);
+            alert.error(error);
+            dispatch(clearErrors());
         }
+    },[error,alert])
+
+    useEffect(() => {
         dispatch(getProduct());
-    }, [dispatch, error,alert]);
+    }, [dispatch]);
     return (
         <>
             {loading ? (
