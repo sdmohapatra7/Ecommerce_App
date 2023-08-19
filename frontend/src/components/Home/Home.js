@@ -6,7 +6,7 @@ import MetaData from '../layout/MetaData';
 
 import { getProduct } from '../../actions/productAction';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Loader from '../layout/Loader/Loader';
 
 
 // const product = {
@@ -27,7 +27,7 @@ export default function Home() {
     return (
         <>
             {loading ? (
-                'loading'
+                <Loader/>
             ) : (
                 <>
                     <MetaData title='Ecommerce' />

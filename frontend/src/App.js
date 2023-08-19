@@ -7,6 +7,7 @@ import webFont from 'webfontloader';
 import Footer from './components/layout/Footer/Footer.js';
 import Home from './components/Home/Home.js'
 
+
 function App() {
   useEffect(()=>{
     webFont.load({
