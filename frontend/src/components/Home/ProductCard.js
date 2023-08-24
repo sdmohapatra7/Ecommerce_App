@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export default function Product({product}) {
+export default function ProductCard({product}) {
   const options = {
     edit:false,
     color:'rgba(20,20,20,0.1)',

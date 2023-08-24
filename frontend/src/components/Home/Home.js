@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
-import Product from './Product.js';
+import Product from './ProductCard.js';
 import MetaData from '../layout/MetaData';
 
 import { getProduct,clearErrors } from '../../actions/productAction';
@@ -28,7 +28,7 @@ export default function Home() {
             alert.error(error);
             dispatch(clearErrors());
         }
-    },[error,alert])
+    },[dispatch,error,alert])
 
     useEffect(() => {
         dispatch(getProduct());
