@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, getProduct } from '../../actions/productAction';
 import ProductCard from '../Home/ProductCard';
 import Loader from '../layout/Loader/Loader';
+import { useParams } from 'react-router-dom';
 
 export default function Products() {
     const dispatch = useDispatch();
     const { products, loading, error, productsCount } = useSelector((state) => state.products);
+    const {keyword} = useParams();
     useEffect(() => {
-        dispatch(getProduct());
-    }, [dispatch])
+        dispatch(getProduct(keyword));
+    }, [dispatch,keyword]);
     return (
         <>
             {loading ? (
