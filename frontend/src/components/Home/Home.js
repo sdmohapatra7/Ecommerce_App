@@ -23,16 +23,13 @@ export default function Home() {
         (state) => state.products
     );
 
-    useEffect(()=>{
+    useEffect(() => {
         if(error){
             alert.error(error);
             dispatch(clearErrors());
         }
-    },[dispatch,error,alert])
-
-    useEffect(() => {
         dispatch(getProduct());
-    }, [dispatch]);
+    }, [dispatch,error,alert]);
     return (
         <>
             {loading ? (
