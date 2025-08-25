@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rating } from "@material-ui/lab";
+import Rating from "@mui/material/Rating";
 import profilePng from "../images/profile.png";
 export default function ReviewCard({ review }) {
     const options = {

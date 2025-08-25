@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './products.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrors, getProduct } from '../../actions/productAction';
+import { getProducts } from "../../features/productAction";
+import { clearErrors } from "../../features/productSlice";
 import ProductCard from '../Home/ProductCard';
 import Loader from '../layout/Loader/Loader';
 import { useParams } from 'react-router-dom';
 import Pagination from "react-js-pagination";
-import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
+import { Slider, Typography } from "@mui/material";
+
 import { useAlert } from "react-alert";
 
 
@@ -30,7 +31,7 @@ export default function Products() {
             alert.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProduct(keyword,currentPage, price));
+        dispatch(getProducts(keyword,currentPage, price));
     }, [dispatch, keyword, currentPage,price, error,alert]);
     
     return (

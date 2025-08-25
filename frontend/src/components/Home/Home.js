@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
-import Product from './ProductCard.js';
+import Product from './ProductCard';
 import MetaData from '../layout/MetaData';
 
-import { getProduct,clearErrors } from '../../actions/productAction';
+import { getProducts } from "../../features/productAction";
+import { clearErrors } from "../../features/productSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
@@ -28,7 +29,7 @@ export default function Home() {
             alert.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProduct());
+        dispatch(getProducts());
     }, [dispatch,error,alert]);
     return (
         <>
@@ -38,7 +39,7 @@ export default function Home() {
                 <>
                     <MetaData title='Ecommerce' />
                     <div className="banner">
-                        <p>Welcome to Ecommerce</p>
+                        <p>Welcome to ESmart</p>
                         <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
                         <a href="#container">

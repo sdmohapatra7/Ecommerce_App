@@ -1,0 +1,56 @@
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.form-card {
+  padding: 2rem;
+  width: 400px;
+  border-radius: 12px;
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.MuiTextField-root {
+  padding-left: 30px !important;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.image-preview {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preview-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

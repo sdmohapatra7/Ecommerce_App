@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import Carousel from "react-material-ui-carousel";
 import { useParams } from 'react-router-dom';
-import { Rating } from "@material-ui/lab";
+import Rating from "@mui/material/Rating";
 import { useAlert } from "react-alert";
 import Loader from "../layout/Loader/Loader";
 import ReviewCard from './ReviewCard.js';
 import './ProductDetails.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductDetails, clearErrors } from '../../actions/productAction';
+import { getProductDetails } from "../../features/productAction";
+import { clearErrors } from "../../features/productSlice";
 
 
 export default function ProductDetails() {
