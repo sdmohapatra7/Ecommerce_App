@@ -16,7 +16,7 @@ export default function ProductDetails() {
     const { id } = useParams();
     const alert = useAlert();
     const dispatch = useDispatch();
-    const { product, loading, error } = useSelector((state) => state.productDetails);
+    const { product, loading, error } = useSelector((state) => state.products);
     const options = {
         size: "large",
         value: product.ratings,

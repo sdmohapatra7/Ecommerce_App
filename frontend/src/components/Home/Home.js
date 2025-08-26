@@ -37,7 +37,7 @@ export default function Home() {
                 <Loader/>
             ) : (
                 <>
-                    <MetaData title='Ecommerce' />
+                    <MetaData title='ESmart' />
                     <div className="banner">
                         <p>Welcome to ESmart</p>
                         <h1>FIND AMAZING PRODUCTS BELOW</h1>

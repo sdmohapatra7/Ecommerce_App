@@ -20,3 +20,6 @@ input::-webkit-inner-spin-button {
 .redColor {
   color: red !important;
 }
+.menuBurgerItem {
+  background-color: rgb(158, 155, 155) !important;
+}
