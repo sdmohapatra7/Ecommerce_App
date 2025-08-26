@@ -1,0 +1,91 @@
+/* Header.css */
+
+.customNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 1vmax 2vmax;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+  font-family: "Roboto", sans-serif;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2vmax;
+  position: relative;
+}
+
+.navLinks a,
+.navLinks span {
+  text-decoration: none;
+  color: rgba(35, 35, 35, 0.8);
+  font-size: 1.2vmax;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover,
+.navLinks span:hover {
+  color: #28c74f;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Pushes it below the parent element */
+  left: 0;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  padding: 1vmax;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.dropdown-menu a {
+  padding: 0.5vmax 1vmax;
+  text-decoration: none;
+  color: rgba(35, 35, 35, 0.8);
+  font-size: 1vmax;
+  transition: background-color 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+  color: #28c74f;
+}
+
+.navIcons {
+  display: flex;
+  align-items: center;
+  gap: 1.5vmax;
+}
+
+.navIcons .icon {
+  font-size: 1.8vmax;
+  color: rgba(35, 35, 35, 0.8);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navIcons .icon:hover {
+  color: #28c74f;
+}
+
+.user-menu {
+  right: 0;
+  left: auto;
+}
