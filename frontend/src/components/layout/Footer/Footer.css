@@ -1,11 +1,5 @@
-footer {
-  margin-top: 10vmax;
-  padding: 2vmax;
-  background-color: rgb(209, 212, 210);
-  color: rgb(29, 28, 28);
-  display: flex;
-  align-items: center;
-}
+
+
 
 .leftFooter {
   width: 20%;

@@ -8,13 +8,13 @@ import { clearErrors } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 
 // Material UI
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { TextField, Button, Box, Typography, Paper,InputAdornment } from "@mui/material";
 
 // React Icons
 import { FaEnvelope, FaLock } from "react-icons/fa";
 
 import "./form.css";
-
+import logo from "../images/logo.png"
 export default function Login() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -44,7 +44,24 @@ export default function Login() {
 
   return (
     <Box className="form-wrapper">
+      {/* Left Background Section */}
+      <Box className="form-left">
+        <Typography variant="h4" className="form-left-text">
+          Welcome Back!
+        </Typography>
+        <Typography variant="body1" className="form-left-subtext">
+          Please login to continue
+        </Typography>
+      </Box>
+
+      {/* Right Form Section */}
+      <Box className="form-right">
+  {/* Logo above card */}
+  <div className="form-logo-wrapper">
+    <img src={logo} alt="Logo" className="form-logo" />
+  </div>
       <Paper elevation={3} className="form-card">
+        
         <Typography variant="h5" align="center" gutterBottom>
           Sign In
         </Typography>
@@ -58,7 +75,7 @@ export default function Login() {
             <Form className="form-body">
               {/* Email */}
               <Box className="form-field">
-                <FaEnvelope className="form-icon" />
+                {/* <FaEnvelope className="form-icon" /> */}
                 <TextField
                   fullWidth
                   label="Email"
@@ -66,13 +83,22 @@ export default function Login() {
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
+                  className="form-input"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FaEnvelope style={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <ErrorMessage name="email" component="div" className="error-text" />
+                
               </Box>
+              <ErrorMessage name="email" component="div" className="error-text" />
 
               {/* Password */}
               <Box className="form-field">
-                <FaLock className="form-icon" />
+                {/* <FaLock className="form-icon" /> */}
                 <TextField
                   fullWidth
                   label="Password"
@@ -81,16 +107,25 @@ export default function Login() {
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
+                  className="form-input"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FaLock style={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <ErrorMessage name="password" component="div" className="error-text" />
+                
               </Box>
+              <ErrorMessage name="password" component="div" className="error-text" />
 
               {/* Submit */}
               <Button
                 fullWidth
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="success"
                 disabled={loading}
               >
                 {loading ? "Signing in..." : "Sign in"}
@@ -99,6 +134,7 @@ export default function Login() {
           )}
         </Formik>
       </Paper>
+      </Box>
     </Box>
   );
 }

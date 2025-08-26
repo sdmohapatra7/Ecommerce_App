@@ -8,13 +8,13 @@ import { clearErrors } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 
 // Material UI
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
+import { TextField, Button, Box, Typography, Paper,InputAdornment } from "@mui/material";
 
 // React Icons
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 import "./form.css";
-
+import logo from "../images/logo.png"
 export default function Signup() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -23,9 +23,9 @@ export default function Signup() {
   const { loading, error, isAuthenticated } = useSelector((state) => state.user);
 
   const validationSchema = Yup.object({
-    name: Yup.string().min(3, "At least 3 characters").required("Name is required"),
+    name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().min(6, "At least 6 characters").required("Password is required"),
+    password: Yup.string().min(6, "Password must be 6+ chars").required("Password is required"),
   });
 
   const handleSubmit = (values) => {
@@ -38,16 +38,33 @@ export default function Signup() {
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-      alert.success("Signup successful!");
-      navigate("/login");
+      alert.success("Account created!");
+      navigate("/profile");
     }
   }, [dispatch, error, isAuthenticated, alert, navigate]);
 
   return (
     <Box className="form-wrapper">
+      {/* Left Background Section */}
+      <Box className="form-left">
+        <Typography variant="h4" className="form-left-text">
+          Join Us!
+        </Typography>
+        <Typography variant="body1" className="form-left-subtext">
+          Create your account to get started
+        </Typography>
+      </Box>
+
+      {/* Right Form Section */}
+       <Box className="form-right">
+        {/* Logo above card */}
+        <div className="form-logo-wrapper">
+          <img src={logo} alt="Logo" className="form-logo" />
+        </div>
       <Paper elevation={3} className="form-card">
+        
         <Typography variant="h5" align="center" gutterBottom>
-          Create Account
+          Sign Up
         </Typography>
 
         <Formik
@@ -59,7 +76,7 @@ export default function Signup() {
             <Form className="form-body">
               {/* Name */}
               <Box className="form-field">
-                <FaUser className="form-icon" />
+                {/* <FaUser className="form-icon" /> */}
                 <TextField
                   fullWidth
                   label="Name"
@@ -67,13 +84,22 @@ export default function Signup() {
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
+                  className="form-input"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FaUser style={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <ErrorMessage name="name" component="div" className="error-text" />
+                
               </Box>
+              <ErrorMessage name="name" component="div" className="error-text" />
 
               {/* Email */}
               <Box className="form-field">
-                <FaEnvelope className="form-icon" />
+                {/* <FaEnvelope className="form-icon" /> */}
                 <TextField
                   fullWidth
                   label="Email"
@@ -81,13 +107,22 @@ export default function Signup() {
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
+                  className="form-input"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FaEnvelope style={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <ErrorMessage name="email" component="div" className="error-text" />
+                
               </Box>
+              <ErrorMessage name="email" component="div" className="error-text" />
 
               {/* Password */}
               <Box className="form-field">
-                <FaLock className="form-icon" />
+                {/* <FaLock className="form-icon" /> */}
                 <TextField
                   fullWidth
                   label="Password"
@@ -96,24 +131,34 @@ export default function Signup() {
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
+                  className="form-input"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FaLock style={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <ErrorMessage name="password" component="div" className="error-text" />
+                
               </Box>
+              <ErrorMessage name="password" component="div" className="error-text" />
 
               {/* Submit */}
               <Button
                 fullWidth
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="success"
                 disabled={loading}
               >
-                {loading ? "Signing up..." : "Sign up"}
+                {loading ? "Signing up..." : "Sign Up"}
               </Button>
             </Form>
           )}
         </Formik>
       </Paper>
+      </Box>
     </Box>
   );
 }

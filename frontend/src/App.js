@@ -44,15 +44,14 @@ function Layout({ children }) {
 
   // Pages where header/footer should be hidden
   const noLayoutRoutes = ["/login", "/signup"];
-
   const hideLayout = noLayoutRoutes.includes(location.pathname);
 
   return (
-    <>
+    <div className="appLayout">
       {!hideLayout && <Header />}
-      {children}
+      <main className="appMain">{children}</main>
       {!hideLayout && <Footer />}
-    </>
+    </div>
   );
 }
 

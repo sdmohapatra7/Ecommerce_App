@@ -2,14 +2,63 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  height: 90vh;
+  gap: 2rem;
+  margin-right: 2rem;
+}
+
+/* Left background section */
+.form-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  background: linear-gradient(to right, #03d125, #1c64bd);
+  height: 100vh;
+}
+
+.form-left-text {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.form-left-subtext {
+  font-size: 1.1rem;
+  opacity: 0.9;
 }
 
 .form-card {
+  flex: 1;
   padding: 2rem;
-  width: 350px;
+  width: 100%;            /* take full width of container */
+  max-width: 600px;       /* but don’t exceed 600px */
+  min-width: 300px;       /* keep a minimum size for small screens */
   border-radius: 12px;
+  box-sizing: border-box; /* ensure padding doesn’t break layout */
 }
+
+.form-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-logo-wrapper {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-logo {
+  width: 260px;
+  height: auto;
+}
+
 
 .form-body {
   display: flex;
@@ -28,11 +77,12 @@
   left: 10px;
   font-size: 18px;
   color: #555;
+  pointer-events: none;
 }
 
-/* Fix padding inside Material UI inputs */
-.MuiTextField-root input {
-  padding-left: 30px !important;
+.form-input {
+  width: 100%;
+  padding-left: 2.5rem;  /* ensures space for icon */
 }
 
 .error-text {

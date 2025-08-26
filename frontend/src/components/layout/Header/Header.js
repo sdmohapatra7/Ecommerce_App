@@ -8,9 +8,15 @@ import {
 import logo from "../../images/logo.png";
 import "./Header.css";
 
+import ForgotPassword from "../../User/ForgotPassword";
+import Profile from "../../User/Profile";   // ✅ import Profile popup
+
 export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showProductMenu, setShowProductMenu] = useState(false);
+
+  const [openForgot, setOpenForgot] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false); // ✅ state for Profile popup
 
   return (
     <header className="customNavbar">
@@ -65,13 +71,38 @@ export default function Header() {
             <div className="dropdown-menu user-menu">
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              <Link to="/account">Profile</Link>
+
+              {/* ✅ Open Profile popup instead of redirect */}
+              <button
+                className="custum-btn"
+                onClick={() => setOpenProfile(true)}
+              >
+                Profile
+              </button>
+
               <Link to="/orders">My Orders</Link>
-              <Link to="/password/forgot">Forgot Password</Link>
+
+              {/* ✅ Forgot Password popup */}
+              <button
+                className="custum-btn"
+                onClick={() => setOpenForgot(true)}
+              >
+                Forgot Password
+              </button>
             </div>
           )}
         </div>
       </div>
+
+      {/* ✅ Popup Components */}
+      <ForgotPassword
+        open={openForgot}
+        handleClose={() => setOpenForgot(false)}
+      />
+      <Profile
+        open={openProfile}
+        handleClose={() => setOpenProfile(false)}
+      />
     </header>
   );
 }
