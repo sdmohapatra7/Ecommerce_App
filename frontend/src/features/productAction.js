@@ -5,7 +5,7 @@ import axios from "axios";
 // Fetch all products (for user & admin)
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({ keyword = "", currentPage = 1, price = [0, 25000] }, { rejectWithValue }) => {
+  async ({ keyword = "", currentPage = 1, price = [0, 25000] } = {}, { rejectWithValue }) => {
     try {
       const link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
       const { data } = await axios.get(link);
@@ -16,13 +16,14 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+
 // Fetch product details
 export const getProductDetails = createAsyncThunk(
   "products/getProductDetails",
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/v1/product/${id}`);
-      return data.product;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -34,9 +35,16 @@ export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const token = localStorage.getItem('authToken');
+      const config = { 
+        headers: { 
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+         },
+        
+      };
       const { data } = await axios.post("/api/v1/admin/product/new", productData, config);
-      return data.product;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -50,7 +58,7 @@ export const updateProduct = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put(`/api/v1/admin/product/${id}`, productData, config);
-      return data.product;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -63,7 +71,7 @@ export const deleteProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -77,7 +85,7 @@ export const createProductReview = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put("/api/v1/review", reviewData, config);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -90,7 +98,7 @@ export const getProductReviews = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/v1/reviews?productId=${id}`);
-      return data.reviews;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -103,7 +111,7 @@ export const deleteReview = createAsyncThunk(
   async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(`/api/v1/reviews?reviewId=${reviewId}&productId=${productId}`);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }

@@ -12,15 +12,9 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import {
-  FaBox,
-  FaDollarSign,
-  FaAlignLeft,
-  FaWarehouse,
-  FaTags,
-} from "react-icons/fa";
+import { FaBox, FaDollarSign, FaAlignLeft, FaWarehouse, FaTags } from "react-icons/fa";
 import { createProduct } from "../../features/productAction";
-import { resetSuccess } from "../../features/productSlice";
+import { resetSuccess, clearErrors } from "../../features/productSlice";
 
 export default function NewProduct() {
   const dispatch = useDispatch();
@@ -63,9 +57,8 @@ export default function NewProduct() {
     formData.set("category", values.category);
     formData.set("stock", values.stock);
 
-    values.images.forEach((img) => {
-      formData.append("images", img);
-    });
+    // Append images
+    values.images.forEach((img) => formData.append("images", img));
 
     dispatch(createProduct(formData));
 
@@ -73,15 +66,15 @@ export default function NewProduct() {
     setImagesPreview([]);
   };
 
+  // Reset errors/success
   useEffect(() => {
-    if (success) {
-      dispatch(resetSuccess());
-    }
-  }, [success, dispatch]);
+    if (error) setTimeout(() => dispatch(clearErrors()), 5000);
+    if (success) dispatch(resetSuccess());
+  }, [dispatch, error, success]);
 
   return (
-    <Box className="form-wrapper">
-      <Paper elevation={3} className="form-card">
+    <Box sx={{ maxWidth: 600, margin: "2rem auto" }}>
+      <Paper elevation={3} sx={{ padding: 3 }}>
         <Typography variant="h5" align="center" gutterBottom>
           Create New Product
         </Typography>
@@ -102,10 +95,9 @@ export default function NewProduct() {
           onSubmit={handleSubmit}
         >
           {({ handleChange, setFieldValue }) => (
-            <Form className="form-body">
+            <Form>
               {/* Name */}
-              <Box className="form-field">
-                <FaBox className="form-icon" />
+              <Box mb={2}>
                 <TextField
                   fullWidth
                   label="Product Name"
@@ -114,16 +106,11 @@ export default function NewProduct() {
                   variant="outlined"
                   size="small"
                 />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className="error-text"
-                />
+                <ErrorMessage name="name" component="div" style={{ color: "red" }} />
               </Box>
 
               {/* Description */}
-              <Box className="form-field">
-                <FaAlignLeft className="form-icon" />
+              <Box mb={2}>
                 <TextField
                   fullWidth
                   multiline
@@ -134,16 +121,11 @@ export default function NewProduct() {
                   variant="outlined"
                   size="small"
                 />
-                <ErrorMessage
-                  name="description"
-                  component="div"
-                  className="error-text"
-                />
+                <ErrorMessage name="description" component="div" style={{ color: "red" }} />
               </Box>
 
               {/* Price */}
-              <Box className="form-field">
-                <FaDollarSign className="form-icon" />
+              <Box mb={2}>
                 <TextField
                   fullWidth
                   type="number"
@@ -153,16 +135,11 @@ export default function NewProduct() {
                   variant="outlined"
                   size="small"
                 />
-                <ErrorMessage
-                  name="price"
-                  component="div"
-                  className="error-text"
-                />
+                <ErrorMessage name="price" component="div" style={{ color: "red" }} />
               </Box>
 
               {/* Category */}
-              <Box className="form-field">
-                <FaTags className="form-icon" />
+              <Box mb={2}>
                 <TextField
                   select
                   fullWidth
@@ -177,16 +154,11 @@ export default function NewProduct() {
                   <MenuItem value="Books">Books</MenuItem>
                   <MenuItem value="Home">Home</MenuItem>
                 </TextField>
-                <ErrorMessage
-                  name="category"
-                  component="div"
-                  className="error-text"
-                />
+                <ErrorMessage name="category" component="div" style={{ color: "red" }} />
               </Box>
 
               {/* Stock */}
-              <Box className="form-field">
-                <FaWarehouse className="form-icon" />
+              <Box mb={2}>
                 <TextField
                   fullWidth
                   type="number"
@@ -196,15 +168,11 @@ export default function NewProduct() {
                   variant="outlined"
                   size="small"
                 />
-                <ErrorMessage
-                  name="stock"
-                  component="div"
-                  className="error-text"
-                />
+                <ErrorMessage name="stock" component="div" style={{ color: "red" }} />
               </Box>
 
               {/* Images */}
-              <Box>
+              <Box mb={2}>
                 <Typography variant="subtitle1">Upload Images</Typography>
                 <input
                   type="file"
@@ -213,19 +181,14 @@ export default function NewProduct() {
                   accept="image/*"
                   onChange={(e) => handleImageChange(e, setFieldValue)}
                 />
-                <Box className="image-preview">
+                <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
                   {imagesPreview.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt="preview"
-                      className="preview-img"
-                    />
+                    <img key={i} src={img} alt="preview" width={50} height={50} />
                   ))}
                 </Box>
               </Box>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <Button
                 fullWidth
                 type="submit"

@@ -8,7 +8,7 @@ export const createOrder = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.post("/api/v1/order/new", orderData, config);
-      return data.order;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -21,7 +21,7 @@ export const getOrderDetails = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/v1/order/${id}`);
-      return data.order;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -34,7 +34,7 @@ export const myOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get("/api/v1/orders/me");
-      return data.orders;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -47,7 +47,7 @@ export const getAllOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get("/api/v1/admin/orders");
-      return data.orders;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -61,7 +61,7 @@ export const updateOrder = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put(`/api/v1/admin/order/${id}`, orderData, config);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -74,7 +74,7 @@ export const deleteOrder = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }

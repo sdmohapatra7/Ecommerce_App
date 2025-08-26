@@ -8,7 +8,7 @@ export const registerUser = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.post("/api/v1/register", userData, config);
-      return data.user;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.post("/api/v1/login", { email, password }, config);
-      return data.user;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -35,7 +35,7 @@ export const loadUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get("/api/v1/me");
-      return data.user;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -62,7 +62,7 @@ export const updateProfile = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put("/api/v1/me/update", userData, config);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -76,7 +76,7 @@ export const updatePassword = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put("/api/v1/password/update", passwords, config);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -90,7 +90,7 @@ export const forgotPassword = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.post("/api/v1/password/forgot", emailData, config);
-      return data.message;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
@@ -104,7 +104,7 @@ export const resetPassword = createAsyncThunk(
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put(`/api/v1/password/reset/${token}`, passwords, config);
-      return data.success;
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
