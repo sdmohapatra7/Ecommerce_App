@@ -12,7 +12,6 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { FaBox, FaDollarSign, FaAlignLeft, FaWarehouse, FaTags } from "react-icons/fa";
 import { createProduct } from "../../features/productAction";
 import { resetSuccess, clearErrors } from "../../features/productSlice";
 
@@ -21,6 +20,16 @@ export default function NewProduct() {
   const { loading, error, success } = useSelector((state) => state.products);
 
   const [imagesPreview, setImagesPreview] = useState([]);
+
+  // 👉 Initial State
+  const initialValues = {
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    stock: "",
+    images: [],
+  };
 
   // Validation Schema
   const validationSchema = Yup.object({
@@ -53,16 +62,17 @@ export default function NewProduct() {
     const formData = new FormData();
     formData.set("name", values.name);
     formData.set("description", values.description);
-    formData.set("price", values.price);
+    formData.set("price", Number(values.price));
     formData.set("category", values.category);
-    formData.set("stock", values.stock);
+    formData.set("stock", Number(values.stock));
 
     // Append images
-    values.images.forEach((img) => formData.append("images", img));
+   values.images.forEach((img) => formData.append("images", img)); // "images" matches multer.array("images")
+
 
     dispatch(createProduct(formData));
 
-    resetForm();
+    resetForm({ values: initialValues }); // reset to initial state
     setImagesPreview([]);
   };
 
@@ -83,18 +93,11 @@ export default function NewProduct() {
         {success && <Alert severity="success">Product created successfully!</Alert>}
 
         <Formik
-          initialValues={{
-            name: "",
-            description: "",
-            price: "",
-            category: "",
-            stock: "",
-            images: [],
-          }}
+          initialValues={initialValues}   // ✅ using state
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ handleChange, setFieldValue }) => (
+          {({ values, handleChange, setFieldValue }) => (
             <Form>
               {/* Name */}
               <Box mb={2}>
@@ -102,6 +105,7 @@ export default function NewProduct() {
                   fullWidth
                   label="Product Name"
                   name="name"
+                  value={values.name}
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
@@ -117,6 +121,7 @@ export default function NewProduct() {
                   rows={3}
                   label="Description"
                   name="description"
+                  value={values.description}
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
@@ -131,6 +136,7 @@ export default function NewProduct() {
                   type="number"
                   label="Price"
                   name="price"
+                  value={values.price}
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
@@ -145,6 +151,7 @@ export default function NewProduct() {
                   fullWidth
                   label="Category"
                   name="category"
+                  value={values.category}
                   onChange={handleChange}
                   variant="outlined"
                   size="small"
@@ -164,6 +171,7 @@ export default function NewProduct() {
                   type="number"
                   label="Stock"
                   name="stock"
+                  value={values.stock}
                   onChange={handleChange}
                   variant="outlined"
                   size="small"

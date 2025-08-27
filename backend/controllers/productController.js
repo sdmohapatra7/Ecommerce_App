@@ -2,18 +2,45 @@ const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const ApiFeactures = require('../utils/apiFeactures');
-
+const cloudinary = require("../config/cloudinary");
+const fs = require("fs");
 //create Product ---> admin
-exports.createProduct = catchAsyncError(async (req,res)=>{
+exports.createProduct = async (req, res, next) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: "No images uploaded" });
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < req.files.length; i++) {
+      const result = await cloudinary.uploader.upload(req.files[i].path, {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+
+      // delete local file after upload
+      fs.unlinkSync(req.files[i].path);
+    }
+
+    req.body.images = imagesLinks;
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
 
     res.status(201).json({
-        success:true,
-        product
-    })
-});
+      success: true,
+      product,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 
 
 //get all products
