@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 import { registerUser } from "../../features/userAction";
 import { clearErrors } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,6 @@ import "./form.css";
 import logo from "../images/logo.png"
 export default function Signup() {
   const dispatch = useDispatch();
-  const alert = useAlert();
   const navigate = useNavigate();
 
   const { loading, error, isAuthenticated } = useSelector((state) => state.user);
@@ -34,14 +33,14 @@ export default function Signup() {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-      alert.success("Account created!");
+      toast.success("Account created!");
       navigate("/profile");
     }
-  }, [dispatch, error, isAuthenticated, alert, navigate]);
+  }, [dispatch, error, isAuthenticated, navigate]);
 
   return (
     <Box className="form-wrapper">

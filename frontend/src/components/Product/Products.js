@@ -8,10 +8,9 @@ import Loader from '../layout/Loader/Loader';
 import { useParams } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import { Slider, Typography } from "@mui/material";
-import { useAlert } from "react-alert";
+import { toast } from 'react-toastify';
 
 export default function Products() {
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,12 +29,12 @@ export default function Products() {
 
     useEffect(() => {
         if (error) {
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
 
         dispatch(getProducts(keyword, currentPage, price[0], price[1]));
-    }, [dispatch, keyword, currentPage, price, error, alert]);
+    }, [dispatch, keyword, currentPage, price, error]);
 
     return (
         <>

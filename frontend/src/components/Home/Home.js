@@ -8,7 +8,7 @@ import { getProducts } from "../../features/productAction";
 import { clearErrors } from "../../features/productSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
-import { useAlert } from 'react-alert';
+import { toast } from 'react-toastify';
 
 
 // const product = {
@@ -18,7 +18,7 @@ import { useAlert } from 'react-alert';
 //     _id:'shakti'
 // }
 export default function Home() {
-    const alert = useAlert();
+    
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector(
         (state) => state.products
@@ -26,11 +26,11 @@ export default function Home() {
 
     useEffect(() => {
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
         dispatch(getProducts());
-    }, [dispatch,error,alert]);
+    }, [dispatch,error]);
     return (
         <>
             {loading ? (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, ErrorMessage } from "formik";
+import { toast } from 'react-toastify';
 import * as Yup from "yup";
 import {
   Box,
@@ -9,7 +10,6 @@ import {
   TextField,
   Typography,
   MenuItem,
-  Alert,
   CircularProgress,
 } from "@mui/material";
 import { createProduct } from "../../features/productAction";
@@ -89,8 +89,8 @@ export default function NewProduct() {
           Create New Product
         </Typography>
 
-        {error && <Alert severity="error">{error}</Alert>}
-        {success && <Alert severity="success">Product created successfully!</Alert>}
+        {error && toast.error(error)}
+        {success && toast.error(error)}
 
         <Formik
           initialValues={initialValues}   // ✅ using state
