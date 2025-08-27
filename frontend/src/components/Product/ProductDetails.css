@@ -1,5 +1,6 @@
+/* ---------- Product Details ---------- */
 .ProductDetails {
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   width: 100vw;
   max-width: 100%;
   padding: 6vmax;
@@ -60,32 +61,49 @@
   font: 400 1.8vmax "Franklin Gothic Medium";
   margin: 1vmax 0;
 }
+
 .detailsBlock-3-1 {
   display: flex;
   align-items: center;
 }
 
-.detailsBlock-3-1-1 > button {
-  border: none;
-  background-color: rgba(0, 0, 0, 0.616);
-  padding: 0.5vmax;
-  cursor: pointer;
-  color: white;
-  transition: all 0.5s;
+.detailsBlock-3-1-1 {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  width: max-content;
 }
+
+.detailsBlock-3-1-1 > button {
+  width: 2.5rem;           /* fixed width for buttons */
+  height: 2.5rem;          /* height same as input */
+  border: none;
+  background-color: #00000088;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
 .detailsBlock-3-1-1 > button:hover {
-  background-color: rgba(0, 0, 0, 0.767);
+  background-color: #000;
 }
 
 .detailsBlock-3-1-1 > input {
-  border: none;
-  padding: 0.5vmax;
-  width: 1vmax;
+  width: 3rem;              /* make input wider */
+  height: 2.5rem;
   text-align: center;
+  border: none;
   outline: none;
-  font: 400 0.8vmax "Roboto";
-  color: rgba(0, 0, 0, 0.74);
+  font-size: 1rem;
+  color: #000;
 }
+
 
 .detailsBlock-3-1 > button:last-child {
   border: none;
@@ -123,35 +141,58 @@
   font: 300 0.8vmax sans-serif;
 }
 
-.submitReview {
-  border: none;
-  background-color: rgb(9, 211, 26);
-  font: 500 0.7vmax "Roboto";
-  border-radius: 20px;
-  padding: 0.6vmax 2vmax;
-  margin: 1vmax 0;
-  color: white;
-  cursor: pointer;
-  transition: all 0.5s;
-  outline: none;
-}
-.submitReview:hover {
-  background-color: rgb(9, 211, 26);
-  transform: scale(1.1);
-}
-
-.submitDialog {
+/* ---------- Submit Review ---------- */
+.submitReviewContainer {
+  width: 70%;
+  margin-top: 3vmax;
   display: flex;
   flex-direction: column;
-}
-.submitDialogTextArea {
-  border: 1px solid rgba(0, 0, 0, 0.082);
-  margin: 1vmax 0;
-  outline: none;
-  padding: 1rem;
-  font: 300 1rem "Roboto";
+  align-items: flex-start;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 2vmax;
 }
 
+.submitReviewContainer h3 {
+  font: 500 1.2vmax "Roboto";
+  margin-bottom: 1vmax;
+  color: rgba(0,0,0,0.8);
+}
+
+.submitReviewContainer textarea {
+  width: 100%;
+  min-height: 6vmax;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 1vmax;
+  font: 400 0.9vmax "Roboto";
+  resize: none;
+  margin-bottom: 1vmax;
+  outline: none;
+}
+
+.submitReviewContainer textarea:focus {
+  border-color: rgb(9, 211, 26);
+  box-shadow: 0 0 5px rgba(9,211,26,0.3);
+}
+
+.submitReviewContainer button {
+  border: none;
+  background-color: rgb(9, 211, 26);
+  color: white;
+  padding: 0.8vmax 2vmax;
+  font: 500 0.9vmax "Roboto";
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s all;
+  outline: none;
+}
+
+.submitReviewContainer button:hover {
+  transform: scale(1.05);
+  background-color: rgb(7, 180, 22);
+}
+
+/* ---------- Reviews ---------- */
 .reviewsHeading {
   color: #000000be;
   font: 500 1.4vmax "Roboto";
@@ -162,33 +203,47 @@
   margin: auto;
   margin-bottom: 4vmax;
 }
+
 .reviews {
   display: flex;
-  overflow: auto;
+  flex-wrap: wrap;
+  gap: 2vmax;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 2vmax;
 }
 
+/* Smaller Review Cards */
 .reviewCard {
   flex: none;
-
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
-  border: 1px solid rgba(56, 56, 56, 0.116);
-  width: 30vmax;
+  width: 20vmax;
+  padding: 2vmax;
+  margin: 1vmax;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1vmax;
-  padding: 3vmax;
+  box-shadow: 0 0 4px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  background-color: #fff;
 }
+
 .reviewCard > img {
-  width: 5vmax;
+  width: 4vmax;
+  border-radius: 50%;
+  margin-bottom: 1vmax;
 }
+
 .reviewCard > p {
-  color: rgba(0, 0, 0, 0.836);
-  font: 600 0.9vmax "Roboto";
+  font: 500 0.9vmax "Roboto";
+  color: rgba(0,0,0,0.8);
+  margin-bottom: 0.5vmax;
+  text-align: center;
 }
+
 .reviewCardComment {
-  color: rgba(0, 0, 0, 0.445);
-  font: 300 0.8vmax cursive;
+  font: 300 0.8vmax "Roboto";
+  color: rgba(0,0,0,0.6);
+  text-align: center;
 }
 
 .noReviews {
@@ -197,6 +252,7 @@
   color: rgba(0, 0, 0, 0.548);
 }
 
+/* ---------- Responsive ---------- */
 @media screen and (max-width: 600px) {
   .ProductDetails {
     flex-direction: column;
@@ -250,7 +306,7 @@
   .detailsBlock-3-1 > button:last-child {
     font: 500 1.7vmax "Roboto";
     padding: 1.5vmax;
-    width: 20vmax;
+    width: 90%;
     margin: 3vmax 0;
   }
 
@@ -268,17 +324,67 @@
     font: 300 1.8vmax sans-serif;
   }
 
-  .submitReview {
-    font: 500 1.7vmax "Roboto";
-    padding: 1.5vmax;
-    width: 20vmax;
-    margin: 3vmax 0;
+  .submitReviewContainer {
+    width: 90%;
+    align-items: center;
+  }
+
+  .submitReviewContainer h3 {
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .submitReviewContainer textarea {
+    font-size: 3vw;
+    min-height: 10vw;
+  }
+
+  .submitReviewContainer button {
+    font-size: 3vw;
+    padding: 2vw 5vw;
+    width: 90%;
+  }
+
+  .reviewCard {
+    width: 40vw;
+    padding: 4vw;
+  }
+
+  .reviewCard > img {
+    width: 10vw;
   }
 
   .reviewCard > p {
-    font: 600 3vw "Roboto";
+    font-size: 4vw;
   }
+
   .reviewCardComment {
-    font: 300 5vw cursive;
+    font-size: 3.5vw;
+  }
+}
+
+
+.carouselContainer {
+  width: 100%;
+  max-width: 40vmax; /* adjust max width as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CarouselImage {
+  width: 100%;
+  height: auto;           /* maintain aspect ratio */
+  max-height: 40vmax;     /* optional: limit height */
+  object-fit: contain;    /* fit image without cropping */
+  border-radius: 10px;    /* optional styling */
+}
+@media screen and (max-width: 600px) {
+  .carouselContainer {
+    max-width: 90%; /* almost full width on mobile */
+  }
+
+  .CarouselImage {
+    max-height: 50vmax; /* scale down for mobile */
   }
 }
