@@ -1,12 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const token = localStorage.getItem('authToken');
 // Add product to cart
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async ({ productId, quantity }, { rejectWithValue }) => {
         try {
-            const { data } = await axios.put("/api/v1/cart/add", { productId, quantity });
+            const config = { 
+                headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
+                
+            };
+            const { data } = await axios.put("/api/v1/cart/add", { productId, quantity },config);
             return data; // return updated cart
         } catch (error) {
             return rejectWithValue(error.response.data.message);
@@ -19,7 +26,14 @@ export const getCartItems = createAsyncThunk(
     "cart/getCartItems",
     async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get("/api/v1/cart/");
+            const config = { 
+                headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
+                
+            };
+            const { data } = await axios.get("/api/v1/cart/",config);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data.message);
@@ -32,7 +46,14 @@ export const removeCartItem = createAsyncThunk(
     "cart/removeCartItem",
     async (productId, { rejectWithValue }) => {
         try {
-            const { data } = await axios.delete(`/api/v1/cart/remove/${productId}`);
+            const config = { 
+                headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
+                
+            };
+            const { data } = await axios.delete(`/api/v1/cart/remove/${productId}`,config);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data.message);
@@ -45,7 +66,14 @@ export const clearCart = createAsyncThunk(
     "cart/clearCart",
     async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.delete("/api/cart/clear");
+            const config = { 
+                headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
+                
+            };
+            const { data } = await axios.delete("/api/cart/clear",config);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data.message);

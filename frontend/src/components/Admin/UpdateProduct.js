@@ -79,18 +79,29 @@ export default function UpdateProduct() {
   };
 
   // Submit Update
-  const handleSubmit = (values) => {
-    const formData = new FormData();
-    formData.set("name", values.name);
-    formData.set("description", values.description);
-    formData.set("price", Number(values.price));
-    formData.set("category", values.category);
-    formData.set("stock", Number(values.stock));
+  // inside UpdateProduct.jsx
+const handleSubmit = (values, { resetForm }) => {
+  const formData = new FormData();
+  formData.set("name", values.name);
+  formData.set("description", values.description);
+  formData.set("price", Number(values.price));
+  formData.set("category", values.category);
+  formData.set("stock", Number(values.stock));
 
-    values.images.forEach((img) => formData.append("images", img));
+  // Only append new images if user selected any
+  if (values.images && values.images.length > 0) {
+    values.images.forEach((img) => {
+      formData.append("images", img);
+    });
+  }
 
-    dispatch(updateProduct({ id, formData }));
-  };
+  dispatch(updateProduct({ id:id, formData }));
+
+  // reset form only if you want to clear after update
+  // resetForm({ values: initialValues });
+  setImagesPreview([]);
+};
+
 
   if (loading && !product) return <Loader />;
 

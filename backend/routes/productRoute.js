@@ -17,7 +17,13 @@ router.route('/products').get(getAllProducts);
 
 router.route('/product/:id').get(getProductDetails);
 
-router.route('/admin/product/:id').put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct);
+router.route('/admin/product/:id')
+.put(
+  isAuthenticatedUser, 
+  authorizeRoles("admin"), 
+  upload.array("images", 5),
+  updateProduct
+);
 
 router.route('/admin/product/:id').delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
 

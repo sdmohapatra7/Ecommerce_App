@@ -1,7 +1,7 @@
 // src/redux/productAction.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const token = localStorage.getItem('authToken');
 // Fetch all products (for user & admin)
 export const getProducts = createAsyncThunk(
   "products/getProducts",
@@ -35,7 +35,7 @@ export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('authToken');
+      
       const config = { 
         headers: { 
           "Content-Type": "multipart/form-data",
@@ -54,10 +54,16 @@ export const createProduct = createAsyncThunk(
 // Update product (Admin)
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
-  async ({ id, productData }, { rejectWithValue }) => {
+  async ({ id, formData }, { rejectWithValue }) => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
-      const { data } = await axios.put(`/api/v1/admin/product/${id}`, productData, config);
+      const config = { 
+        headers: { 
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+         },
+        
+      };
+      const { data } = await axios.put(`/api/v1/admin/product/${id}`, formData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -70,7 +76,14 @@ export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      const config = { 
+        headers: { 
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+         },
+        
+      };
+      const { data } = await axios.delete(`/api/v1/admin/product/${id}`,config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);

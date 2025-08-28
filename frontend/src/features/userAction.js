@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const token = localStorage.getItem('authToken');
 // Register user
 export const registerUser = createAsyncThunk(
   "user/register",
@@ -60,7 +60,13 @@ export const updateProfile = createAsyncThunk(
   "user/updateProfile",
   async (userData, { rejectWithValue }) => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { 
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+         },
+        
+      };
       const { data } = await axios.put("/api/v1/me/update", userData, config);
       return data;
     } catch (error) {
@@ -74,7 +80,13 @@ export const updatePassword = createAsyncThunk(
   "user/updatePassword",
   async (passwords, { rejectWithValue }) => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { 
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+         },
+        
+      };
       const { data } = await axios.put("/api/v1/password/update", passwords, config);
       return data;
     } catch (error) {

@@ -126,8 +126,8 @@
   transition: all 0.5s;
   background-color: rgb(9, 211, 26);
   font: 500 0.9vmax "Roboto";
-  border-radius: 20px;
-  padding: 0.5vmax 2vmax;
+  border-radius: 5px;
+  padding: 0.9vmax 2vmax;
   margin: 1vmax;
   outline: none;
 }
@@ -193,9 +193,9 @@
   border: none;
   background-color: rgb(9, 211, 26);
   color: white;
-  padding: 0.8vmax 2vmax;
+  padding: 0.9vmax 2vmax;
   font: 500 0.9vmax "Roboto";
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   transition: 0.3s all;
   outline: none;

@@ -77,22 +77,50 @@ exports.getProductDetails = catchAsyncError(async (req,res,next)=>{
 });
 
 //update product   -----> admin
-exports.updateProduct = catchAsyncError(async (req,res,next)=>{
-    let product = await Product.findById(req.params.id);
-    if(!product){
-        return next(new ErrorHandler("Product Not Found",404));
-    }
-    product = await Product.findByIdAndUpdate(req.params.id,req.body,{
-        new:true,
-        runValidators:true,
-        useFindAndModify:false
-    })
+exports.updateProduct = catchAsyncError(async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+  if (!product) {
+    return next(new ErrorHandler("Product Not Found", 404));
+  }
 
-    res.status(200).json({
-        success:true,
-        product
-    })
+  // If new images are uploaded
+  if (req.files && req.files.length > 0) {
+    // Delete old images from Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.uploader.destroy(product.images[i].public_id);
+    }
+
+    // Upload new images
+    const imagesLinks = [];
+    for (let i = 0; i < req.files.length; i++) {
+      const result = await cloudinary.uploader.upload(req.files[i].path, {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+
+      // delete local file after upload
+      fs.unlinkSync(req.files[i].path);
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
 });
+
 
 //delete product ----> admin
 exports.deleteProduct = catchAsyncError(async(req,res,next)=>{
