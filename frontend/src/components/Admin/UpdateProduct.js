@@ -20,7 +20,7 @@ import {
 } from "../../features/productAction";
 import {
   resetSuccess,
-  clearErrors,
+  // clearErrors,
 } from "../../features/productSlice";
 import Loader from "../layout/Loader/Loader";
 
