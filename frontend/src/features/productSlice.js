@@ -46,37 +46,94 @@ const productSlice = createSlice({
       })
 
       // Get product details
-      .addCase(getProductDetails.pending, (state) => { state.loading = true; })
-      .addCase(getProductDetails.fulfilled, (state, action) => { state.loading = false; state.product = action.payload; })
-      .addCase(getProductDetails.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(getProductDetails.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(getProductDetails.fulfilled, (state, action) => { 
+        state.loading = false; 
+        state.product = action.payload.product; 
+      })
+      .addCase(getProductDetails.rejected, (state, action) => { 
+        state.loading = false;
+         state.error = action.payload; 
+        })
 
       // Create product
-      .addCase(createProduct.pending, (state) => { state.loading = true; })
-      .addCase(createProduct.fulfilled, (state, action) => { state.loading = false; state.success = true; state.product = action.payload; })
-      .addCase(createProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(createProduct.pending, (state) => { 
+        state.loading = true;
+       })
+      .addCase(createProduct.fulfilled, (state, action) => { 
+        state.loading = false; 
+        state.success = true; 
+        state.product = action.payload; 
+      })
+      .addCase(createProduct.rejected, (state, action) => { 
+        state.loading = false; 
+        state.error = action.payload; 
+      })
 
       // Update product
-      .addCase(updateProduct.pending, (state) => { state.loading = true; })
-      .addCase(updateProduct.fulfilled, (state, action) => { state.loading = false; state.success = true; state.product = action.payload; })
-      .addCase(updateProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(updateProduct.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => { 
+        state.loading = false; 
+        state.success = true; 
+        state.product = action.payload; 
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+         state.loading = false; 
+         state.error = action.payload;
+         })
 
       // Delete product
-      .addCase(deleteProduct.pending, (state) => { state.loading = true; })
-      .addCase(deleteProduct.fulfilled, (state) => { state.loading = false; state.success = true; })
-      .addCase(deleteProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(deleteProduct.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(deleteProduct.fulfilled, (state) => { 
+        state.loading = false; 
+        state.success = true; 
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+         state.loading = false; 
+         state.error = action.payload; 
+        })
 
       // Reviews
-      .addCase(createProductReview.pending, (state) => { state.loading = true; })
-      .addCase(createProductReview.fulfilled, (state) => { state.loading = false; state.success = true; })
-      .addCase(createProductReview.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(createProductReview.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(createProductReview.fulfilled, (state) => { 
+        state.loading = false; 
+        state.success = true;
+       })
+      .addCase(createProductReview.rejected, (state, action) => { 
+        state.loading = false; 
+        state.error = action.payload; 
+      })
 
-      .addCase(getProductReviews.pending, (state) => { state.loading = true; })
-      .addCase(getProductReviews.fulfilled, (state, action) => { state.loading = false; state.reviews = action.payload; })
-      .addCase(getProductReviews.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(getProductReviews.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(getProductReviews.fulfilled, (state, action) => {
+         state.loading = false; 
+         state.reviews = action.payload; 
+        })
+      .addCase(getProductReviews.rejected, (state, action) => { 
+        state.loading = false; 
+        state.error = action.payload; 
+      })
 
-      .addCase(deleteReview.pending, (state) => { state.loading = true; })
-      .addCase(deleteReview.fulfilled, (state) => { state.loading = false; state.success = true; })
-      .addCase(deleteReview.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
+      .addCase(deleteReview.pending, (state) => { 
+        state.loading = true; 
+      })
+      .addCase(deleteReview.fulfilled, (state) => { 
+        state.loading = false; 
+        state.success = true; })
+      .addCase(deleteReview.rejected, (state, action) => { 
+        state.loading = false; 
+        state.error = action.payload; 
+      });
   },
 });
 

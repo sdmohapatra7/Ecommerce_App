@@ -3,30 +3,44 @@
   background-color: #fff;
   width: 100vw;
   max-width: 100%;
-  padding: 6vmax;
+  padding: 4vmax;
   box-sizing: border-box;
   display: flex;
+  gap: 3vmax; /* space between carousel and details */
 }
 
-.ProductDetails > div {
+/* Left: Carousel */
+.carouselContainer {
+  flex: 0 0 380px;     /* fixed base width */
+  max-width: 40%;      /* never more than 40% */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productSwiper {
   width: 100%;
+  height: 400px;
+  padding-bottom: 24px; /* for pagination dots */
+}
+
+.productSlideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+/* Right: Details */
+.ProductDetailsRight {
+  flex: 1;  /* take all remaining space */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 2vmax;
-  box-sizing: border-box;
-  border: 1px solid white;
+  justify-content: flex-start;
 }
 
-.ProductDetails > div:last-child {
-  align-items: flex-start;
-}
-
-.CarouselImage {
-  width: 20vmax;
-}
-
+/* ---------- Details Blocks ---------- */
 .detailsBlock-1 > h2 {
   color: rgb(54, 54, 54);
   font: 600 1.6vmax "Roboto";
@@ -43,7 +57,7 @@
   align-items: center;
   border-top: 1px solid rgba(0, 0, 0, 0.205);
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-  width: 70%;
+  width: 100%;
   padding: 1vmax 0;
 }
 
@@ -53,7 +67,7 @@
 }
 
 .detailsBlock-3 {
-  width: 70%;
+  width: 100%;
 }
 
 .detailsBlock-3 > h1 {
@@ -65,6 +79,7 @@
 .detailsBlock-3-1 {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .detailsBlock-3-1-1 {
@@ -77,10 +92,10 @@
 }
 
 .detailsBlock-3-1-1 > button {
-  width: 2.5rem;           /* fixed width for buttons */
-  height: 2.5rem;          /* height same as input */
+  width: 2.5rem;
+  height: 2.5rem;
   border: none;
-  background-color: #00000088;
+  background-color: rgb(9, 211, 26);
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
@@ -91,11 +106,11 @@
 }
 
 .detailsBlock-3-1-1 > button:hover {
-  background-color: #000;
+  background-color: #048119;
 }
 
 .detailsBlock-3-1-1 > input {
-  width: 3rem;              /* make input wider */
+  width: 3rem;
   height: 2.5rem;
   text-align: center;
   border: none;
@@ -104,14 +119,13 @@
   color: #000;
 }
 
-
 .detailsBlock-3-1 > button:last-child {
   border: none;
   cursor: pointer;
   color: white;
   transition: all 0.5s;
   background-color: rgb(9, 211, 26);
-  font: 500 0.7vmax "Roboto";
+  font: 500 0.9vmax "Roboto";
   border-radius: 20px;
   padding: 0.5vmax 2vmax;
   margin: 1vmax;
@@ -119,7 +133,7 @@
 }
 
 .detailsBlock-3-1 > button:last-child:hover {
-  background-color: rgb(9, 211, 26);
+  background-color: #048119;
 }
 
 .detailsBlock-3 > p {
@@ -143,7 +157,7 @@
 
 /* ---------- Submit Review ---------- */
 .submitReviewContainer {
-  width: 70%;
+  width: 100%;
   margin-top: 3vmax;
   display: flex;
   flex-direction: column;
@@ -252,16 +266,55 @@
   color: rgba(0, 0, 0, 0.548);
 }
 
+/* ---------- Swiper Navigation ---------- */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #333 !important;
+  background: rgba(255,255,255,0.9);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 16px !important;
+}
+
+/* Dots */
+.swiper-pagination-bullet {
+  background: #bbb;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #333;
+}
+
 /* ---------- Responsive ---------- */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .ProductDetails {
     flex-direction: column;
-    height: unset;
+    gap: 2vmax;
   }
 
-  .ProductDetails > div:last-child {
-    align-items: center;
+  .carouselContainer {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
   }
+
+  .productSwiper {
+    height: 300px;
+  }
+
+  .ProductDetailsRight {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .productSwiper { height: 240px; }
 
   .detailsBlock-1 > h2 {
     font-size: 2.8vmax;
@@ -360,31 +413,5 @@
 
   .reviewCardComment {
     font-size: 3.5vw;
-  }
-}
-
-
-.carouselContainer {
-  width: 100%;
-  max-width: 40vmax; /* adjust max width as needed */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.CarouselImage {
-  width: 100%;
-  height: auto;           /* maintain aspect ratio */
-  max-height: 40vmax;     /* optional: limit height */
-  object-fit: contain;    /* fit image without cropping */
-  border-radius: 10px;    /* optional styling */
-}
-@media screen and (max-width: 600px) {
-  .carouselContainer {
-    max-width: 90%; /* almost full width on mobile */
-  }
-
-  .CarouselImage {
-    max-height: 50vmax; /* scale down for mobile */
   }
 }

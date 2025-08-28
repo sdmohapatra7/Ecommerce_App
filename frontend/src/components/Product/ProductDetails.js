@@ -1,12 +1,16 @@
+// src/components/Product/ProductDetails.js
 import React, { useEffect, useState } from 'react';
-import Carousel from 'react-material-ui-carousel';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
 import { useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import { toast } from 'react-toastify';
 import Loader from '../layout/Loader/Loader';
 import ReviewCard from './ReviewCard';
 import './ProductDetails.css';
-
+import noImage from '../images/no-image.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductDetails, createProductReview } from '../../features/productAction';
 import { clearErrors } from '../../features/productSlice';
@@ -16,8 +20,8 @@ export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const { product: productData, loading, error } = useSelector(state => state.products);
-  const product = productData?.product;
+  const { product, loading, error } = useSelector(state => state.products);
+  // const product = productData?.product;
 
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
@@ -67,27 +71,38 @@ export default function ProductDetails() {
       ) : (
         <>
           <div className="ProductDetails">
-            <div className="carouselContainer">
-              <Carousel>
-                {product.images?.length > 0
-                  ? product.images.map((item, i) => (
-                      <img
-                        key={i}
-                        className="CarouselImage"
-                        src={item.url}
-                        alt={`Slide ${i}`}
-                      />
-                    ))
-                  : (
-                    <img
-                      className="CarouselImage"
-                      src="/default-product.png"
-                      alt="Default"
-                    />
-                  )}
-              </Carousel>
-            </div>
+            {/* ---- Carousel ---- */}
+<div className="carouselContainer">
+  <Swiper
+    className="productSwiper"
+    modules={[Navigation, Pagination]}
+    navigation
+    pagination={{ clickable: true }}
+    spaceBetween={10}
+    slidesPerView={1}
+    loop={true}
+  >
+    {(
+      product?.images?.filter(img => img?.url && img.url.trim() !== "")?.length
+        ? product.images.filter(img => img?.url && img.url.trim() !== "")
+        : [{ url: noImage }]
+    ).map((item, i) => (
+      <SwiperSlide className="productSlide" key={i}>
+        <img
+          className="productSlideImage"
+          src={item?.url || noImage}
+          alt={product?.name ? `${product.name} ${i + 1}` : `Product ${i + 1}`}
+          onError={(e) => {
+            e.currentTarget.onerror = null; // prevent infinite loop
+            e.currentTarget.src = noImage;
+          }}
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
+            {/* ---- Product Info ---- */}
             <div className="detailsContainer">
               <div className="detailsBlock-1">
                 <h2>{product.name}</h2>
@@ -129,6 +144,7 @@ export default function ProductDetails() {
                 Description: <p>{product.description}</p>
               </div>
 
+              {/* ---- Submit Review ---- */}
               <div className="submitReviewContainer">
                 <h3>Submit Your Review</h3>
                 <Rating
@@ -146,6 +162,7 @@ export default function ProductDetails() {
             </div>
           </div>
 
+          {/* ---- Reviews ---- */}
           <h3 className="reviewsHeading">REVIEWS</h3>
           {product.reviews && product.reviews.length > 0 ? (
             <div className="reviews">

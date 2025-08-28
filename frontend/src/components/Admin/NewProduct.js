@@ -201,7 +201,7 @@ export default function NewProduct() {
                 fullWidth
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="success"
                 disabled={loading}
               >
                 {loading ? <CircularProgress size={24} /> : "Create Product"}

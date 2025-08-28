@@ -1,0 +1,66 @@
+.productListTable {
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.productListTable table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.productListTable th,
+.productListTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.productListTable th {
+  background: #04c90d;
+  font-weight: 600;
+  color:#fff
+}
+
+.tableImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.inStock {
+  color: green;
+  font-weight: 500;
+}
+
+.outStock {
+  color: red;
+  font-weight: 500;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 10px;
+}
+
+.editBtn,
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.editBtn {
+  color: green;
+}
+
+.deleteBtn {
+  color: #c0392b;
+}

@@ -5,18 +5,21 @@ import {
   MdSearch,
   MdAddShoppingCart,
 } from "react-icons/md";
+import { useSelector } from "react-redux";  // ✅ import redux state
 import logo from "../../images/logo.png";
 import "./Header.css";
 
 import ForgotPassword from "../../User/ForgotPassword";
-import Profile from "../../User/Profile";   // ✅ import Profile popup
+import Profile from "../../User/Profile";
 
 export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showProductMenu, setShowProductMenu] = useState(false);
-
   const [openForgot, setOpenForgot] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false); // ✅ state for Profile popup
+  const [openProfile, setOpenProfile] = useState(false);
+
+  // ✅ Get cart items count from Redux
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <header className="customNavbar">
@@ -56,8 +59,13 @@ export default function Header() {
         <Link to="/search">
           <MdSearch />
         </Link>
-        <Link to="/cart">
+
+        {/* ✅ Cart with badge */}
+        <Link to="/cart" className="cartIcon">
           <MdAddShoppingCart />
+          {cartItems.length > 0 && (
+            <span className="cartCount">{cartItems.length}</span>
+          )}
         </Link>
 
         {/* User Dropdown */}
@@ -72,7 +80,6 @@ export default function Header() {
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
 
-              {/* ✅ Open Profile popup instead of redirect */}
               <button
                 className="custum-btn"
                 onClick={() => setOpenProfile(true)}
@@ -82,7 +89,6 @@ export default function Header() {
 
               <Link to="/orders">My Orders</Link>
 
-              {/* ✅ Forgot Password popup */}
               <button
                 className="custum-btn"
                 onClick={() => setOpenForgot(true)}

@@ -19,8 +19,16 @@
   height: 180px;
   object-fit: cover;
 }
-
-.productCardSpan {
+.rating-review {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;    /* center align */
+  margin-top: 0.5rem;
+}
+.productCardReview {
+  display: block;  /* pushes it to next line */
+  margin-top: 0.2rem;
   font-size: 0.9rem;
   color: gray;
 }
+
