@@ -17,7 +17,9 @@ export default function Products() {
     const [price, setPrice] = useState([0, 25000]);
 
     const { products, loading, error, productsCount, resultPerPage } = useSelector((state) => state.products);
-    const { keyword } = useParams(); // Optional, make sure route supports it: /products/:keyword?
+
+    // ✅ you already had this, just ensuring it passes to thunk correctly
+    const { keyword } = useParams();
 
     const setCurrentPageNo = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -33,7 +35,8 @@ export default function Products() {
             dispatch(clearErrors());
         }
 
-        dispatch(getProducts(keyword, currentPage, price[0], price[1]));
+        // 🔹 change: pass object instead of separate args
+        dispatch(getProducts({ keyword, page: currentPage, price }));
     }, [dispatch, keyword, currentPage, price, error]);
 
     return (

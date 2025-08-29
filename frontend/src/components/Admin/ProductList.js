@@ -15,11 +15,11 @@ export default function ProductList() {
   );
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts({}));
 
     if (success) {
       dispatch(resetSuccess()); // reset success after delete
-      dispatch(getProducts()); // refresh list
+      dispatch(getProducts({})); // refresh list
     }
   }, [dispatch, success]);
 

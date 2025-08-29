@@ -29,7 +29,7 @@ export default function Home() {
             toast.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProducts());
+        dispatch(getProducts({}));
     }, [dispatch,error]);
     return (
         <>

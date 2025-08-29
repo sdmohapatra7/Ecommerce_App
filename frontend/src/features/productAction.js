@@ -5,16 +5,19 @@ const token = localStorage.getItem('authToken');
 // Fetch all products (for user & admin)
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({ keyword = "", currentPage = 1, price = [0, 25000] } = {}, { rejectWithValue }) => {
+  async ({ keyword = "", page = 1, price = [0, 25000] } = {}, { rejectWithValue }) => {
     try {
-      const link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      // ✅ if keyword is undefined it becomes "", so URL is safe
+      const link = `/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      
       const { data } = await axios.get(link);
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.error || error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
+
 
 
 // Fetch product details
