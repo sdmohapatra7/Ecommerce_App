@@ -50,7 +50,7 @@ export default function Header() {
           )}
         </div>
 
-        <Link to="/about">About</Link>
+        <Link to="/admin/users">User Management</Link>
         <Link to="/contact">Contact</Link>
       </nav>
 

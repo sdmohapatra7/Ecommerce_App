@@ -34,13 +34,20 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/me");
-      return data;
+      const token = localStorage.getItem("authToken"); // make sure you have token
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.get("/api/v1/me", config);
+      return data.user; // return the user object
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
   }
 );
+
 
 // Logout
 export const logoutUser = createAsyncThunk(

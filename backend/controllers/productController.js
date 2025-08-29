@@ -176,6 +176,57 @@ exports.createProductReview = catchAsyncError(async (req,res,next)=>{
     });
 });
 
+// Update a review
+exports.updateReview = catchAsyncError(async (req, res, next) => {
+  const { rating, comment } = req.body;
+  const reviewId = req.params.id;
+
+  const product = await Product.findOne({ "reviews._id": reviewId });
+  if (!product) {
+    return next(new ErrorHandler("Product or Review not found", 404));
+  }
+
+  // Find the review inside product.reviews
+  const review = product.reviews.id(reviewId);
+  if (!review) {
+    return next(new ErrorHandler("Review not found", 404));
+  }
+
+  // ✅ Update only if values provided
+  if (typeof rating !== "undefined") {
+    review.rating = rating;
+  }
+  if (typeof comment !== "undefined") {
+    review.comment = comment;
+  }
+
+  // ✅ If rating/comment is intentionally deleted
+  if (rating === null || rating === 0) {
+    review.rating = 0;
+  }
+  if (comment === null || comment.trim() === "") {
+    review.comment = "";
+  }
+
+  // Recalculate product rating
+  let avg = 0;
+  product.reviews.forEach((rev) => {
+    avg += rev.rating;
+  });
+
+  product.ratings = product.reviews.length > 0 ? avg / product.reviews.length : 0;
+  product.numOfReviews = product.reviews.length;
+
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    message: "Review updated successfully",
+    review,
+  });
+});
+
+
 //Get All reviews of a Product
 exports.getProductReviews = catchAsyncError(async(req,res,next)=>{
 

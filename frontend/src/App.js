@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import webFont from "webfontloader";
-
+import { useDispatch } from "react-redux";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer.js";
 import Home from "./components/Home/Home.js";
@@ -38,7 +38,7 @@ import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
-
+import { loadUser } from "./features/userAction";
 function Layout({ children }) {
   const location = useLocation();
 
@@ -56,6 +56,7 @@ function Layout({ children }) {
 }
 
 function App() {
+  const dispatch = useDispatch();
   useEffect(() => {
     webFont.load({
       google: {
@@ -63,6 +64,10 @@ function App() {
       },
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   return (
     <Router>

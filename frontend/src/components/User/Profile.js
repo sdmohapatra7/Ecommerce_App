@@ -1,16 +1,43 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
+  DialogActions,
+  TextField,
+  Button,
   IconButton,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { updateProfile, loadUser } from "../../features/userAction";
+import { toast } from "react-toastify";
 
 export default function Profile({ open, handleClose }) {
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
+
+  const handleUpdate = async () => {
+    try {
+      await dispatch(updateProfile({ name, email })).unwrap();
+      toast.success("Profile updated successfully");
+      dispatch(loadUser()); // refresh
+      handleClose();
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
@@ -31,11 +58,10 @@ export default function Profile({ open, handleClose }) {
       </DialogTitle>
 
       <DialogContent dividers>
-        <div className="profile-card" style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }}>
           <img
             src={user?.avatar?.url || "https://via.placeholder.com/120"}
             alt="User Avatar"
-            className="profile-avatar"
             style={{
               width: "120px",
               height: "120px",
@@ -43,20 +69,30 @@ export default function Profile({ open, handleClose }) {
               marginBottom: "1rem",
             }}
           />
-          <div className="profile-info" style={{ textAlign: "left" }}>
-            <Typography variant="body1">
-              <strong>Name:</strong> {user?.name}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Email:</strong> {user?.email}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Joined:</strong>{" "}
-              {user?.createdAt ? String(user.createdAt).substr(0, 10) : ""}
-            </Typography>
-          </div>
         </div>
+
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </DialogContent>
+
+      <DialogActions>
+        <Button onClick={handleClose} color="secondary">Cancel</Button>
+        <Button onClick={handleUpdate} variant="contained" color="primary">
+          Update
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }

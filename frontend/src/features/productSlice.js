@@ -9,6 +9,7 @@ import {
   createProductReview,
   getProductReviews,
   deleteReview,
+  updateReview 
 } from "./productAction";
 
 const initialState = {
@@ -133,6 +134,21 @@ const productSlice = createSlice({
       .addCase(deleteReview.rejected, (state, action) => { 
         state.loading = false; 
         state.error = action.payload; 
+      })
+      .addCase(updateReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateReview.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        // Replace the updated review in state.reviews
+        state.reviews = state.reviews.map((rev) =>
+          rev._id === action.payload._id ? action.payload : rev
+        );
+      })
+      .addCase(updateReview.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

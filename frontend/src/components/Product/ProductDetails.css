@@ -229,22 +229,22 @@
 
 /* Smaller Review Cards */
 .reviewCard {
-  flex: none;
-  width: 20vmax;
-  padding: 2vmax;
-  margin: 1vmax;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 0 4px rgba(0,0,0,0.15);
-  border-radius: 8px;
-  background-color: #fff;
+    flex: none;
+    width: auto;
+    padding: 2vmax;
+    margin: 1vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background-color: #fff;
+    gap: 1vmax;
 }
 
 .reviewCard > img {
   width: 4vmax;
   border-radius: 50%;
-  margin-bottom: 1vmax;
 }
 
 .reviewCard > p {
@@ -414,4 +414,125 @@
   .reviewCardComment {
     font-size: 3.5vw;
   }
+}
+.popupOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+}
+
+.popupContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.popupActions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btnPrimary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnSecondary {
+  background: #ccc;
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnDanger {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reviewWrapper {
+  /* border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px; */
+  margin-bottom: 10px;
+}
+
+.reviewActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-direction: row-reverse;
+}
+
+.btnSmall {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Textarea styles only for popup */
+.popupContent textarea {
+  width: 100%;
+  min-height: 100px;          /* good default height for popup input */
+  max-height: 240px;          /* prevent huge boxes */
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #111;
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;           /* allow vertical resize only; change to none to disable */
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus state */
+.popupContent textarea:focus {
+  border-color: rgba(9, 211, 26, 0.9);   /* green highlight */
+  box-shadow: 0 6px 18px rgba(9,211,26,0.12);
+  transform: translateY(-0.5px);
+}
+
+/* Placeholder styling */
+.popupContent textarea::placeholder {
+  color: rgba(0,0,0,0.42);
+  font-style: italic;
+}
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .popupContent textarea {
+    min-height: 120px;
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+
+/* Popup action buttons alignment */
+.popupActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
 }

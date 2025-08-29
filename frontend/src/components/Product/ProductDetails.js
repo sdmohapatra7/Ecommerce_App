@@ -12,20 +12,87 @@ import ReviewCard from './ReviewCard';
 import './ProductDetails.css';
 import noImage from '../images/no-image.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductDetails, createProductReview } from '../../features/productAction';
+import {
+  getProductDetails,
+  createProductReview,
+  updateReview,
+  deleteReview,
+} from '../../features/productAction';
 import { clearErrors } from '../../features/productSlice';
 import { addToCart } from '../../features/cartAction';
+
+// Popup for editing review
+function ReviewPopup({ open, onClose, review, onSubmit }) {
+  const [rating, setRating] = useState(review?.rating || 0);
+  const [comment, setComment] = useState(review?.comment || "");
+
+  useEffect(() => {
+    setRating(review?.rating || 0);
+    setComment(review?.comment || "");
+  }, [review]);
+
+  if (!open) return null;
+
+  return (
+    <div className="popupOverlay">
+      <div className="popupContent">
+        <h3>Edit Review</h3>
+        <Rating
+          value={rating}
+          precision={0.5}
+          onChange={(e, val) => setRating(val)}
+        />
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <div className="popupActions">
+          <button
+            onClick={() => onSubmit({ ...review, rating, comment })}
+            className="btnPrimary"
+          >
+            Save
+          </button>
+          <button onClick={onClose} className="btnSecondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Popup for delete confirmation
+function DeleteConfirm({ open, onClose, onConfirm }) {
+  if (!open) return null;
+
+  return (
+    <div className="popupOverlay">
+      <div className="popupContent">
+        <h3>Delete Review?</h3>
+        <p>Are you sure you want to delete this review?</p>
+        <div className="popupActions">
+          <button onClick={onConfirm} className="btnDanger">Yes, Delete</button>
+          <button onClick={onClose} className="btnSecondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const { product, loading, error } = useSelector(state => state.products);
-  // const product = productData?.product;
+  const { user } = useSelector(state => state.user);
 
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+
+  // Popup states
+  const [editPopup, setEditPopup] = useState(false);
+  const [deletePopup, setDeletePopup] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
     if (error) {
@@ -64,6 +131,38 @@ export default function ProductDetails() {
       .catch(err => toast.error(err.message));
   };
 
+  const handleEditSubmit = (updatedReview) => {
+  const reviewData = {
+    rating: updatedReview.rating,
+    comment: updatedReview.comment,
+  };
+
+  dispatch(updateReview({
+    reviewId: updatedReview._id,
+    reviewData,   // 👈 pass JSON object
+  }))
+    .then(() => {
+      toast.success('Review updated successfully');
+      dispatch(getProductDetails(product._id));
+      setEditPopup(false);
+    })
+    .catch(err => toast.error(err.message));
+};
+
+const handleDeleteConfirm = () => {
+  dispatch(deleteReview({
+    reviewId: selectedReview._id,
+    productId: product._id,   // 👈 add this
+  }))
+    .then(() => {
+      toast.success('Review deleted successfully');
+      dispatch(getProductDetails(product._id));
+      setDeletePopup(false);
+    })
+    .catch(err => toast.error(err.message));
+};
+
+
   return (
     <>
       {loading || !product ? (
@@ -72,35 +171,35 @@ export default function ProductDetails() {
         <>
           <div className="ProductDetails">
             {/* ---- Carousel ---- */}
-<div className="carouselContainer">
-  <Swiper
-    className="productSwiper"
-    modules={[Navigation, Pagination]}
-    navigation
-    pagination={{ clickable: true }}
-    spaceBetween={10}
-    slidesPerView={1}
-    loop={true}
-  >
-    {(
-      product?.images?.filter(img => img?.url && img.url.trim() !== "")?.length
-        ? product.images.filter(img => img?.url && img.url.trim() !== "")
-        : [{ url: noImage }]
-    ).map((item, i) => (
-      <SwiperSlide className="productSlide" key={i}>
-        <img
-          className="productSlideImage"
-          src={item?.url || noImage}
-          alt={product?.name ? `${product.name} ${i + 1}` : `Product ${i + 1}`}
-          onError={(e) => {
-            e.currentTarget.onerror = null; // prevent infinite loop
-            e.currentTarget.src = noImage;
-          }}
-        />
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
+            <div className="carouselContainer">
+              <Swiper
+                className="productSwiper"
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination={{ clickable: true }}
+                spaceBetween={10}
+                slidesPerView={1}
+                loop={true}
+              >
+                {(
+                  product?.images?.filter(img => img?.url && img.url.trim() !== "")?.length
+                    ? product.images.filter(img => img?.url && img.url.trim() !== "")
+                    : [{ url: noImage }]
+                ).map((item, i) => (
+                  <SwiperSlide className="productSlide" key={i}>
+                    <img
+                      className="productSlideImage"
+                      src={item?.url || noImage}
+                      alt={product?.name ? `${product.name} ${i + 1}` : `Product ${i + 1}`}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = noImage;
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
 
             {/* ---- Product Info ---- */}
             <div className="detailsContainer">
@@ -167,7 +266,14 @@ export default function ProductDetails() {
           {product.reviews && product.reviews.length > 0 ? (
             <div className="reviews">
               {product.reviews.map(review => (
-                <ReviewCard key={review._id} review={review} />
+                <ReviewCard
+                  key={review._id}
+                  review={review}
+                  isOwner={user && user._id !== review.user}
+                  // isOwner={true}
+                  onEdit={() => { setSelectedReview(review); setEditPopup(true); }}
+                  onDelete={() => { setSelectedReview(review); setDeletePopup(true); }}
+                />
               ))}
             </div>
           ) : (
@@ -175,6 +281,20 @@ export default function ProductDetails() {
           )}
         </>
       )}
+
+      {/* Popups */}
+      <ReviewPopup
+        open={editPopup}
+        onClose={() => setEditPopup(false)}
+        review={selectedReview}
+        onSubmit={handleEditSubmit}
+      />
+
+      <DeleteConfirm
+        open={deletePopup}
+        onClose={() => setDeletePopup(false)}
+        onConfirm={handleDeleteConfirm}
+      />
     </>
   );
 }
