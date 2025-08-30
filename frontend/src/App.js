@@ -69,7 +69,7 @@ function App() {
   useEffect(() => {
     webFont.load({
       google: {
-        families: ["Roboto", "Droid Sans", "Chilanka"],
+        families: ["Montserrat:400,500,700", "Open Sans:300,400,600"],
       },
     });
   }, []);

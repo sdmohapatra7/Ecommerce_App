@@ -17,12 +17,12 @@
 }
 
 .banner h1 {
-  font: 600 3vmax "Roboto";
+  font: 600 3vmax;
   margin-bottom: 1vmax;
 }
 
 .banner p {
-  font: 300 1.5vmax "Lucida Sans";
+  font: 300 1.5vmax;
   margin-bottom: 2vmax;
 }
 
@@ -32,7 +32,7 @@
   border: none;
   border-radius: 5px;
   padding: 1vmax 2vmax;
-  font: 500 1.2vmax "Roboto";
+  font: 500 1.2vmax;
   transition: 0.3s ease;
 }
 
@@ -56,7 +56,7 @@
 
 .homeHeading {
   text-align: center;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-size: 2vmax;
   border-bottom: 2px solid rgba(21, 21, 21, 0.3);
   width: fit-content;
@@ -98,7 +98,7 @@
 }
 
 .productCard > p {
-  font: 500 1.2vmax "Roboto";
+  font: 500 1.2vmax;
   margin: 1vmax;
 }
 
@@ -109,13 +109,13 @@
 }
 
 .productCardSpan {
-  font: 300 0.9vmax "Roboto";
+  font: 300 0.9vmax;
   margin-left: 0.5vmax;
   color: #888;
 }
 
 .productCard > span {
-  font: 600 1vmax "Arial";
+  font: 600 1vmax;
   color: #28c74f;
   margin: 0 1vmax 1vmax;
 }

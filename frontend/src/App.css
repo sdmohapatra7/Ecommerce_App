@@ -37,10 +37,12 @@ html, body {
 footer {
   flex-shrink: 0;
   padding: 2vmax;
-  background: rgb(209, 212, 210);
+  background: #ffffff; /* white background */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* align to top for multi-line content */
+  color: #242424; /* dark text for contrast */
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* subtle top shadow */
 }
 html, body, #root, .appLayout {
   height: 100%;
