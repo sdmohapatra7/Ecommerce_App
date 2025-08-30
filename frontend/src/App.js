@@ -4,6 +4,12 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import webFont from "webfontloader";
 import { useDispatch  } from "react-redux";
 
+import AboutUs from "./components/AboutUs/AboutUs";
+
+import Contact from "./components/Contact/Contact";
+import TermsConditions from "./components/TermsConditions/TermsCondition";
+import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
+
 // Layout
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer.js";
@@ -47,6 +53,8 @@ import ProductReviews from "./components/Admin/ProductReviews";
 import { loadUser } from "./features/userAction";
 import ProtectedRoute from "./ProtectedRoute";
 import { getCartItems } from "./features/cartAction.js";
+import FAQ from "./components/FAQs/FAQ.js";
+
 
 function Layout({ children }) {
   const location = useLocation();
@@ -87,6 +95,11 @@ function App() {
         <Routes>
           {/* Public */}
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/faqs" element={<FAQ/>} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />

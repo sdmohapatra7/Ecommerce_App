@@ -26,7 +26,7 @@ export default function Footer() {
         <h4>Quick Links</h4>
         <a href="/about">About Us</a>
         <a href="/contact">Contact</a>
-        <a href="/faq">FAQs</a>
+        <a href="/faqs">FAQs</a>
         <a href="/terms">Terms & Conditions</a>
         <a href="/privacy">Privacy Policy</a>
       </div>

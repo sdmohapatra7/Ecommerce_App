@@ -76,7 +76,7 @@ export default function Header() {
           <Link to="/admin/users">User Management</Link>
         )}
 
-        <Link to="/contact">Contact</Link>
+        
       </nav>
 
       {/* Right Side Icons */}
