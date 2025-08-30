@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Footer.css";
 import logo from "../../images/logo.png";
+
 export default function Footer() {
   return (
     <footer id="footer">
@@ -12,12 +13,24 @@ export default function Footer() {
           and daily essentials. We aim to provide quality products with
           trusted service.
         </p>
+        <p>
+          From gadgets to clothing, we bring you the best deals, fast delivery,
+          and a seamless shopping experience. Our mission is to make
+          everyday shopping smarter and simpler.
+        </p>
       </div>
 
       {/* Column 2 - Brand */}
       <div className="midFooter">
         <img src={logo} alt="ESmart Logo" className="footerLogo" />
-        <p>High Quality is our first priority</p>
+        <p>
+          High Quality is our first priority. Every product you purchase from
+          us goes through strict quality checks before reaching you.
+        </p>
+        <p>
+          We value our customers and focus on providing 24/7 support,
+          secure payment methods, and hassle-free returns.
+        </p>
         <p>© {new Date().getFullYear()} ESmart. All Rights Reserved.</p>
       </div>
 
@@ -34,10 +47,42 @@ export default function Footer() {
       {/* Column 4 - Social */}
       <div className="fourthFooter">
         <h4>Follow Us</h4>
-        <a href="https://www.linkedin.com/in/shaktidhar-mohapatra" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a href="https://sdmohapatra7.github.io/My-Portfolio/" target="_blank" rel="noreferrer">Portfolio</a>
-        <a href="https://github.com/sdmohapatra7" target="_blank" rel="noreferrer">GitHub</a>
+        <a
+          href="https://www.linkedin.com/in/shaktidhar-mohapatra"
+          target="_blank"
+          rel="noreferrer"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://sdmohapatra7.github.io/My-Portfolio/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Portfolio
+        </a>
+        <a
+          href="https://github.com/sdmohapatra7"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://www.instagram.com/shaktidhar_mohapatra/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Instagram
+        </a>
+        <a
+          href="https://www.facebook.com/shaktidhar.mohapatra"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Facebook
+        </a>
       </div>
     </footer>
-  )
+  );
 }
