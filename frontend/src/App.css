@@ -18,6 +18,9 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* hides unwanted horizontal scroll */
+    font-family: "Roboto", sans-serif;
+     height: 100%;     /* required */
+  margin: 0;
 }
 body {
   display: flex;
@@ -25,12 +28,6 @@ body {
   min-height: 100vh;
   margin: 0;
 }
-
-html, body {
-  height: 100%;     /* required */
-  margin: 0;
-}
-
 
 
 /* footer always at bottom */
@@ -44,7 +41,7 @@ footer {
   color: #242424; /* dark text for contrast */
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* subtle top shadow */
 }
-html, body, #root, .appLayout {
+ #root, .appLayout {
   height: 100%;
   margin: 0;
 }

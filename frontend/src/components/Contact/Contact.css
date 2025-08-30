@@ -2,7 +2,6 @@
   max-width: 700px;
   margin: 3vmax auto;
   padding: 2vmax;
-  font-family: "Roboto", sans-serif;
 }
 
 .contactTitle {
@@ -31,7 +30,7 @@
   font-size: 1.1vmax;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-family: "Roboto", sans-serif;
+
 }
 
 .contactForm textarea {
