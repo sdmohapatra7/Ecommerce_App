@@ -25,10 +25,12 @@ const userManagementSlice = createSlice({
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.users = action.payload.users;
+        state.message = action.payload.message;
       })
       .addCase(getAllUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       })
 
       // Get Single User
@@ -38,36 +40,42 @@ const userManagementSlice = createSlice({
       .addCase(getSingleUser.fulfilled, (state, action) => {
         state.loading = false;
         state.singleUser = action.payload.user;
+        state.message = action.payload.message;
       })
       .addCase(getSingleUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       })
 
       // Update User Role
       .addCase(updateUserRole.pending, (state) => {
         state.loading = true;
       })
-      .addCase(updateUserRole.fulfilled, (state) => {
+      .addCase(updateUserRole.fulfilled, (state,action) => {
         state.loading = false;
         state.success = true;
+        state.message = action.payload.message;
       })
       .addCase(updateUserRole.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       })
 
       // Delete User
       .addCase(deleteUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(deleteUser.fulfilled, (state) => {
+      .addCase(deleteUser.fulfilled, (state,action) => {
         state.loading = false;
         state.success = true;
+        state.message = action.payload.message;
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       });
   },
 });

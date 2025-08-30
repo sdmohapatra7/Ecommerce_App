@@ -44,7 +44,10 @@ export default function UsersList() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      dispatch(deleteUser(id));
+      dispatch(deleteUser(id))
+      .then(() => {
+        dispatch(getAllUsers()); // refresh grid
+      });
     }
   };
 

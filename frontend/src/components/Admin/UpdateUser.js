@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, clearMessage } from "../../features/userManagementSlice";
-import { updateUserRole} from "../../features/userManagementAction";
+import { getAllUsers, updateUserRole} from "../../features/userManagementAction";
 import { toast } from "react-toastify";
 
 export default function UpdateUser({ open, handleClose, user }) {
@@ -41,7 +41,11 @@ export default function UpdateUser({ open, handleClose, user }) {
 
   const handleSubmit = () => {
     if (!user?._id) return;
-    dispatch(updateUserRole({ id: user._id, roleData: { role: formData.role } }));
+    dispatch(updateUserRole({ id: user._id, roleData: formData }))
+    .then(() => {
+      handleClose();
+      dispatch(getAllUsers()); // 🔥 refresh grid
+    });
   };
 
   return (
