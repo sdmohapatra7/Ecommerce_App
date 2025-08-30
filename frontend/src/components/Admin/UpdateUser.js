@@ -3,9 +3,15 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, Button, MenuItem
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, clearMessage } from "../../features/userManagementSlice";
+import { updateUserRole} from "../../features/userManagementAction";
+import { toast } from "react-toastify";
 
 export default function UpdateUser({ open, handleClose, user }) {
   const [formData, setFormData] = useState({ name: "", email: "", role: "" });
+  const dispatch = useDispatch();
+  const { error, message } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (user) {
@@ -17,14 +23,25 @@ export default function UpdateUser({ open, handleClose, user }) {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessage());
+      handleClose(); // close popup after success
+    }
+  }, [error, message, dispatch, handleClose]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    console.log("Updated Data:", formData);
-    // TODO: dispatch(updateUser(formData));
-    handleClose();
+    if (!user?._id) return;
+    dispatch(updateUserRole({ id: user._id, roleData: { role: formData.role } }));
   };
 
   return (
@@ -37,7 +54,7 @@ export default function UpdateUser({ open, handleClose, user }) {
           name="name"
           fullWidth
           value={formData.name}
-          onChange={handleChange}
+          disabled
         />
         <TextField
           margin="dense"
@@ -45,7 +62,7 @@ export default function UpdateUser({ open, handleClose, user }) {
           name="email"
           fullWidth
           value={formData.email}
-          onChange={handleChange}
+          disabled
         />
         <TextField
           margin="dense"

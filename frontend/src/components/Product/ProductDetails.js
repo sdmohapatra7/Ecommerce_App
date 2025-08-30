@@ -111,11 +111,19 @@ export default function ProductDetails() {
   };
 
   const handleAddToCart = () => {
+     if (!user) {
+    toast.error("Please login to add items to cart");
+    return;
+  }
     dispatch(addToCart({ productId: product._id, quantity }));
     toast.success('Item added to cart');
   };
 
   const submitReviewHandler = () => {
+    if (!user) {
+    toast.error("Please login to submit a review");
+    return;
+  }
     if (!comment || rating === 0) {
       toast.error('Please provide rating and comment');
       return;

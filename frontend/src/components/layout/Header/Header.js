@@ -1,11 +1,15 @@
+// src/components/layout/Header/Header.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   MdAccountCircle,
   MdSearch,
   MdAddShoppingCart,
 } from "react-icons/md";
-import { useSelector } from "react-redux";  // ✅ import redux state
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../../features/userAction";
+import { toast } from "react-toastify";
+
 import logo from "../../images/logo.png";
 import "./Header.css";
 
@@ -18,8 +22,22 @@ export default function Header() {
   const [openForgot, setOpenForgot] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
 
-  // ✅ Get cart items count from Redux
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // ✅ Redux states
   const { cartItems } = useSelector((state) => state.cart);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      toast.success("Logged out successfully!");
+      navigate("/login");
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   return (
     <header className="customNavbar">
@@ -44,13 +62,20 @@ export default function Header() {
           {showProductMenu && (
             <div className="dropdown-menu">
               <Link to="/products">All Products</Link>
-              <Link to="/admin/product">Add Product</Link>
-              <Link to="/admin/products">Manage Products</Link>
+              {isAuthenticated && user?.role === "admin" && (
+                <>
+                  <Link to="/admin/product">Add Product</Link>
+                  <Link to="/admin/products">Manage Products</Link>
+                </>
+              )}
             </div>
           )}
         </div>
 
-        <Link to="/admin/users">User Management</Link>
+        {isAuthenticated && user?.role === "admin" && (
+          <Link to="/admin/users">User Management</Link>
+        )}
+
         <Link to="/contact">Contact</Link>
       </nav>
 
@@ -60,7 +85,7 @@ export default function Header() {
           <MdSearch />
         </Link>
 
-        {/* ✅ Cart with badge */}
+        {/* Cart with badge */}
         <Link to="/cart" className="cartIcon">
           <MdAddShoppingCart />
           {cartItems.length > 0 && (
@@ -77,30 +102,38 @@ export default function Header() {
           <MdAccountCircle className="icon" />
           {showUserMenu && (
             <div className="dropdown-menu user-menu">
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-
-              <button
-                className="custum-btn"
-                onClick={() => setOpenProfile(true)}
-              >
-                Profile
-              </button>
-
-              <Link to="/orders">My Orders</Link>
-
-              <button
-                className="custum-btn"
-                onClick={() => setOpenForgot(true)}
-              >
-                Forgot Password
-              </button>
+              {!isAuthenticated ? (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="custum-btn"
+                    onClick={() => setOpenProfile(true)}
+                  >
+                    Profile
+                  </button>
+                  <Link to="/orders">My Orders</Link>
+                  <button
+                    className="custum-btn"
+                    onClick={() => setOpenForgot(true)}
+                  >
+                    Forgot Password
+                  </button>
+                  {/* ✅ Proper logout */}
+                  <button className="custum-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* ✅ Popup Components */}
+      {/* Popup Components */}
       <ForgotPassword
         open={openForgot}
         handleClose={() => setOpenForgot(false)}

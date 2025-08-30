@@ -33,11 +33,11 @@ export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
+      
       const config = { 
         headers: { 
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
+          withCredentials: true,
         },
       };
       const { data } = await axios.post("/api/v1/admin/product/new", productData, config);
@@ -53,11 +53,11 @@ export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
+      
       const config = { 
         headers: { 
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
+          withCredentials: true,
         },
       };
       const { data } = await axios.put(`/api/v1/admin/product/${id}`, formData, config);
@@ -73,8 +73,8 @@ export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
-      const config = { headers: { "Authorization": `Bearer ${token}` } };
+      
+      const config = { headers: { withCredentials: true, } };
       const { data } = await axios.delete(`/api/v1/admin/product/${id}`, config);
       return data;
     } catch (error) {
@@ -88,11 +88,11 @@ export const createProductReview = createAsyncThunk(
   "products/createReview",
   async (reviewData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
+      
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          withCredentials: true,
         },
       };
       const { data } = await axios.put("/api/v1/review", reviewData, config);
@@ -121,8 +121,8 @@ export const deleteReview = createAsyncThunk(
   "products/deleteReview",
   async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
-      const config = { headers: { "Authorization": `Bearer ${token}` } };
+      
+      const config = { headers: { withCredentials: true, } };
       const { data } = await axios.delete(`/api/v1/reviews?reviewId=${reviewId}&productId=${productId}`, config);
       return data;
     } catch (error) {
@@ -135,11 +135,11 @@ export const updateReview = createAsyncThunk(
   "products/updateReview",
   async ({ reviewId, reviewData }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("authToken");
+      
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          withCredentials: true,
         },
       };
 

@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Table, TableBody, TableCell, TableContainer,
   TableHead, TableRow, Paper, Button
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers, deleteUser } from "../../features/userManagementAction";
+import { clearErrors, clearMessage } from "../../features/userManagementSlice";
 import UpdateUser from "./UpdateUser";
+import Loader from "../layout/Loader/Loader";
+import { toast } from "react-toastify";
 
 export default function UsersList() {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { users, error, message, loading } = useSelector((state) => state.userManagement);
 
-  // Dummy fetch (replace with axios / redux action)
+  const [selectedUser, setSelectedUser] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
   useEffect(() => {
-    setUsers([
-      { _id: "1", name: "Shakti", email: "shakti@example.com", role: "admin" },
-      { _id: "2", name: "Ravi", email: "ravi@example.com", role: "user" },
-    ]);
-  }, []);
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessage());
+    }
+  }, [dispatch, error, message]);
 
   const handleEdit = (user) => {
     setSelectedUser(user);
@@ -27,6 +41,17 @@ export default function UsersList() {
     setOpen(false);
     setSelectedUser(null);
   };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      dispatch(deleteUser(id));
+    }
+  };
+
+  // 🔹 Show loader while fetching or deleting
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div style={{ padding: "20px" }}>
@@ -42,7 +67,7 @@ export default function UsersList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {users?.map((user) => (
               <TableRow key={user._id}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
@@ -52,8 +77,16 @@ export default function UsersList() {
                     variant="contained"
                     color="primary"
                     onClick={() => handleEdit(user)}
+                    style={{ marginRight: "10px" }}
                   >
                     Edit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Delete
                   </Button>
                 </TableCell>
               </TableRow>
@@ -62,13 +95,8 @@ export default function UsersList() {
         </Table>
       </TableContainer>
 
-      {/* Popup */}
       {selectedUser && (
-        <UpdateUser
-          open={open}
-          handleClose={handleClose}
-          user={selectedUser}
-        />
+        <UpdateUser open={open} handleClose={handleClose} user={selectedUser} />
       )}
     </div>
   );

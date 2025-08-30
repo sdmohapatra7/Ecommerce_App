@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const token = localStorage.getItem('authToken');
+
 // Create new order
 export const createOrder = createAsyncThunk(
   "order/createOrder",
@@ -9,7 +9,7 @@ export const createOrder = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };
@@ -29,7 +29,7 @@ export const getOrderDetails = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };
@@ -49,7 +49,7 @@ export const myOrders = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };
@@ -69,7 +69,7 @@ export const getAllOrders = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };
@@ -89,7 +89,7 @@ export const updateOrder = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };
@@ -109,7 +109,7 @@ export const deleteOrder = createAsyncThunk(
       const config = { 
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          withCredentials: true,
          },
         
       };

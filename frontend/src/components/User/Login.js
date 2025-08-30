@@ -37,7 +37,7 @@ export default function Login() {
     }
     if (isAuthenticated) {
       toast.success("Login successful!");
-      navigate("/admin/product");
+      navigate("/");
     }
   }, [dispatch, error, isAuthenticated, navigate]);
 

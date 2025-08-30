@@ -38,7 +38,7 @@ export default function Signup() {
     }
     if (isAuthenticated) {
       toast.success("Account created!");
-      navigate("/profile");
+      navigate("/");
     }
   }, [dispatch, error, isAuthenticated, navigate]);
 

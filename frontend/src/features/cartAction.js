@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const token = localStorage.getItem('authToken');
 // Add product to cart
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
@@ -9,7 +8,7 @@ export const addToCart = createAsyncThunk(
             const config = { 
                 headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                withCredentials: true,
                 },
                 
             };
@@ -29,7 +28,7 @@ export const getCartItems = createAsyncThunk(
             const config = { 
                 headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                withCredentials: true,
                 },
                 
             };
@@ -49,7 +48,7 @@ export const removeCartItem = createAsyncThunk(
             const config = { 
                 headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                withCredentials: true,
                 },
                 
             };
@@ -69,7 +68,7 @@ export const clearCart = createAsyncThunk(
             const config = { 
                 headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                withCredentials: true,
                 },
                 
             };

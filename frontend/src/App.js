@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import webFont from "webfontloader";
-import { useDispatch } from "react-redux";
+import { useDispatch  } from "react-redux";
+
+// Layout
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer.js";
+
+// Pages
 import Home from "./components/Home/Home.js";
 import ProductDetails from "./components/Product/ProductDetails.js";
 import Products from "./components/Product/Products.js";
@@ -38,7 +42,12 @@ import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
+
+// Auth
 import { loadUser } from "./features/userAction";
+import ProtectedRoute from "./ProtectedRoute";
+import { getCartItems } from "./features/cartAction.js";
+
 function Layout({ children }) {
   const location = useLocation();
 
@@ -66,8 +75,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(loadUser());
+      dispatch(loadUser());
+      dispatch(getCartItems());
+    
   }, [dispatch]);
+
 
   return (
     <Router>
@@ -79,35 +91,168 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
           <Route path="/search" element={<Search />} />
-
-          {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<Profile />} />
-          <Route path="/me/update" element={<UpdateProfile />} />
-          <Route path="/password/update" element={<UpdatePassword />} />
           <Route path="/password/forgot" element={<ForgotPassword />} />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
 
-          {/* Cart & Orders */}
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/order/confirm" element={<ConfirmOrder />} />
-          <Route path="/process/payment" element={<Payment />} />
-          <Route path="/success" element={<OrderSuccess />} />
-          <Route path="/orders" element={<MyOrders />} />
-          <Route path="/order/:id" element={<OrderDetails />} />
+          {/* Protected User Routes */}
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/me/update"
+            element={
+              <ProtectedRoute>
+                <UpdateProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/password/update"
+            element={
+              <ProtectedRoute>
+                <UpdatePassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetails />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Admin */}
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/products" element={<ProductList />} />
-          <Route path="/admin/product" element={<NewProduct />} />
-          <Route path="/admin/product/:id" element={<UpdateProduct />} />
-          <Route path="/admin/orders" element={<OrderList />} />
-          <Route path="/admin/order/:id" element={<ProcessOrder />} />
-          <Route path="/admin/users" element={<UsersList />} />
-          <Route path="/admin/user/:id" element={<UpdateUser />} />
-          <Route path="/admin/reviews" element={<ProductReviews />} />
+          {/* Cart & Checkout (protected) */}
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/shipping"
+            element={
+              <ProtectedRoute>
+                <Shipping />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/confirm"
+            element={
+              <ProtectedRoute>
+                <ConfirmOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/process/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Routes */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/product"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <NewProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/product/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <OrderList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/order/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProcessOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UsersList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateUser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductReviews />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Layout>
     </Router>
