@@ -277,7 +277,7 @@ const handleDeleteConfirm = () => {
                 <ReviewCard
                   key={review._id}
                   review={review}
-                  isOwner={user && user._id !== review.user}
+                  isOwner={user && user._id === review.user}
                   // isOwner={true}
                   onEdit={() => { setSelectedReview(review); setEditPopup(true); }}
                   onDelete={() => { setSelectedReview(review); setDeletePopup(true); }}
