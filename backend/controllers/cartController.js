@@ -55,16 +55,24 @@ exports.addToCart = async (req, res) => {
 // Get Cart Items
 exports.getCart = async (req, res) => {
     try {
-        const cart = await Cart.findOne({ user: req.user._id })
-            .populate("cartItems.product", "name price stock images"); // 👈 Add stock here
+        let cart = await Cart.findOne({ user: req.user._id })
+            .populate("cartItems.product", "name price stock images"); // include stock
 
-        if (!cart) return res.status(404).json({ message: "Cart not found" });
+        // If no cart exists, create an empty cart object instead of sending 404
+        if (!cart) {
+            cart = {
+                cartItems: [],
+                totalPrice: 0,
+                user: req.user._id,
+            };
+        }
 
         res.status(200).json({ success: true, cart });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
 
 
 // Remove Cart Item

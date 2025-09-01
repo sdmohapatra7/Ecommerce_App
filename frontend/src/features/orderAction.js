@@ -1,19 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL
+import api from "../api"; // common Axios instance
+
+// ====================== ORDER ACTIONS ======================
+
 // Create new order
 export const createOrder = createAsyncThunk(
   "order/createOrder",
   async (orderData, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.post(`${API_URL}/order/new`, orderData, config);
+      const { data } = await api.post("/order/new", orderData, {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -26,14 +23,9 @@ export const getOrderDetails = createAsyncThunk(
   "order/getOrderDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.get(`${API_URL}/order/${id}`,config);
+      const { data } = await api.get(`/order/${id}`, {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -46,14 +38,9 @@ export const myOrders = createAsyncThunk(
   "order/myOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.get(`${API_URL}/orders/me`,config);
+      const { data } = await api.get("/orders/me", {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -66,14 +53,9 @@ export const getAllOrders = createAsyncThunk(
   "order/getAllOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.get(`${API_URL}/admin/orders`,config);
+      const { data } = await api.get("/admin/orders", {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -86,14 +68,9 @@ export const updateOrder = createAsyncThunk(
   "order/updateOrder",
   async ({ id, orderData }, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.put(`${API_URL}/admin/order/${id}`, orderData, config);
+      const { data } = await api.put(`/admin/order/${id}`, orderData, {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -106,14 +83,9 @@ export const deleteOrder = createAsyncThunk(
   "order/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const config = { 
-        headers: { 
-          "Content-Type": "application/json",
-          withCredentials: true,
-         },
-        
-      };
-      const { data } = await axios.delete(`${API_URL}/admin/order/${id}`,config);
+      const { data } = await api.delete(`/admin/order/${id}`, {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);

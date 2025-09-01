@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL
+import api from "../api"; // your common Axios instance
 
 // ====================== USER ACTIONS ======================
 
@@ -9,7 +8,7 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${API_URL}/register`, userData, {
+      const { data } = await api.post("/register", userData, {
         headers: { "Content-Type": "application/json" },
       });
       return data;
@@ -24,11 +23,9 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        `${API_URL}/login`,
-        { email, password },
-        { headers: { "Content-Type": "application/json" } }
-      );
+      const { data } = await api.post("/login", { email, password }, {
+        headers: { "Content-Type": "application/json" },
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -41,12 +38,9 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/me`, { withCredentials: true });
+      const { data } = await api.get("/me");
       return data.user;
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue("Unauthorized");
-      }
       return rejectWithValue(error.response?.data?.error || error.message);
     }
   }
@@ -57,7 +51,7 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      await axios.get(`${API_URL}/logout`,{ withCredentials: true });
+      await api.get("/logout");
       return null;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -70,7 +64,7 @@ export const updateProfile = createAsyncThunk(
   "user/updateProfile",
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`${API_URL}/me/update`, userData, { withCredentials: true });
+      const { data } = await api.put("/me/update", userData);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -83,7 +77,7 @@ export const updatePassword = createAsyncThunk(
   "user/updatePassword",
   async (passwords, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`${API_URL}/password/update`, passwords, { withCredentials: true });
+      const { data } = await api.put("/password/update", passwords);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -96,9 +90,7 @@ export const forgotPassword = createAsyncThunk(
   "user/forgotPassword",
   async (emailData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${API_URL}/password/forgot`, emailData,
-        { withCredentials: true },
-      );
+      const { data } = await api.post("/password/forgot", emailData);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -111,13 +103,10 @@ export const resetPassword = createAsyncThunk(
   "user/resetPassword",
   async ({ token, passwords }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`${API_URL}/password/reset/${token}`, passwords,
-        { withCredentials: true },
-      );
+      const { data } = await api.put(`/password/reset/${token}`, passwords);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
     }
   }
 );
-

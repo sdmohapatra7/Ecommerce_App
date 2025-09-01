@@ -4,7 +4,8 @@
   align-items: center;
   height: 90vh;
   gap: 2rem;
-  margin-right: 2rem;
+  margin-right: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Left background section */
@@ -15,40 +16,36 @@
   justify-content: center;
   align-items: center;
   color: white;
-  padding: 2rem;
-  border-radius: 12px;
   background: linear-gradient(to right, #03d125, #1c64bd);
   height: 100vh;
+  box-sizing: border-box;
 }
 
 .form-left-text {
   font-weight: bold;
   margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
 }
 
 .form-left-subtext {
   font-size: 1.1rem;
   opacity: 0.9;
+  text-align: center;
 }
 
-.form-card {
-  flex: 1;
-  padding: 2rem;
-  width: 100%;            /* take full width of container */
-  max-width: 600px;       /* but don’t exceed 600px */
-  min-width: 300px;       /* keep a minimum size for small screens */
-  border-radius: 12px;
-  box-sizing: border-box; /* ensure padding doesn’t break layout */
-}
-
+/* Right form section */
 .form-right {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  min-width: 300px;
+  box-sizing: border-box;
 }
 
+/* Logo */
 .form-logo-wrapper {
   margin-bottom: 1.5rem;
   text-align: center;
@@ -56,16 +53,29 @@
 
 .form-logo {
   width: 260px;
+  max-width: 100%;
   height: auto;
 }
 
+/* Form Card */
+.form-card {
+  flex: 1;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  min-width: 260px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
 
+/* Form Body */
 .form-body {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
+/* Input fields */
 .form-field {
   position: relative;
   display: flex;
@@ -82,11 +92,61 @@
 
 .form-input {
   width: 100%;
-  padding-left: 2.5rem;  /* ensures space for icon */
+  padding-left: 2.5rem; /* space for icon */
 }
 
+/* Error text */
 .error-text {
   color: red;
   font-size: 0.8rem;
   margin-top: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .form-wrapper {
+    gap: 1rem;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .form-left {
+    flex: 1 1 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+
+  .form-right {
+    flex: 1 1 100%;
+    padding: 1rem;
+  }
+
+  .form-card {
+    max-width: 100%;
+  }
+
+  .form-left-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-left {
+    display: none; /* hide left section on mobile */
+  }
+
+  .form-wrapper {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+  }
+
+  .form-right {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .form-logo {
+    width: 200px;
+  }
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import webFont from "webfontloader";
-import { useDispatch  } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 import AboutUs from "./components/AboutUs/AboutUs";
 
@@ -53,6 +53,7 @@ import { loadUser } from "./features/userAction";
 import ProtectedRoute from "./ProtectedRoute";
 import { getCartItems } from "./features/cartAction.js";
 import FAQ from "./components/FAQs/FAQ.js";
+import Loader from "./components/layout/Loader/Loader.js";
 
 
 function Layout({ children }) {
@@ -73,6 +74,7 @@ function Layout({ children }) {
 
 function App() {
   const dispatch = useDispatch();
+   const { user, loading } = useSelector((state) => state.user);
   useEffect(() => {
     webFont.load({
       google: {
@@ -81,12 +83,19 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-      dispatch(loadUser());
-      dispatch(getCartItems());
-    
-  }, [dispatch]);
+useEffect(() => {
+    const token = localStorage.getItem("authToken");
 
+    // Only load user if Redux state is empty AND token exists
+    if (!user && token) {
+      dispatch(loadUser());
+    }
+    if (user && token) {
+      dispatch(getCartItems());
+    }
+  }, [dispatch, user]);
+
+  if (loading && !user) return <Loader />;
 
   return (
     <Router>

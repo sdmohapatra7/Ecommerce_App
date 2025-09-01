@@ -4,20 +4,23 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap; /* allow wrapping on smaller screens */
-  background: #f8f8f8; /* light bg (optional) */
+  background: #f8f8f8; /* light bg */
   color: #242323;
   border-top: 1px solid #ddd;
+  padding: 2vmax;
+  box-sizing: border-box;
 }
 
-/* ===== Common column styles ===== */
+/* ===== Common Column Styles ===== */
 .leftFooter,
-.midFooter{
+.midFooter {
   width: 35%;
 }
 .rightFooter,
 .fourthFooter {
- width: 15%;
+  width: 15%;
 }
+
 .leftFooter,
 .midFooter,
 .rightFooter,
@@ -48,6 +51,7 @@
 .footerLogo {
   width: 140px;
   height: auto;
+  margin-bottom: 0.8vmax;
 }
 .midFooter > p {
   max-width: 90%;
@@ -66,6 +70,7 @@
   margin-bottom: 0.8vmax;
   color: rgb(9, 211, 26);
 }
+
 .rightFooter > a,
 .fourthFooter > a {
   text-decoration: none;
@@ -74,6 +79,7 @@
   transition: all 0.3s;
   margin: 0.4vmax 0;
 }
+
 .rightFooter > a:hover,
 .fourthFooter > a:hover {
   color: #28c74f;
@@ -89,6 +95,7 @@
   .rightFooter,
   .fourthFooter {
     width: 45%; /* 2 per row */
+    margin-bottom: 2vmax; /* spacing between rows */
   }
 }
 
@@ -97,6 +104,7 @@
   #footer {
     flex-direction: column;
     align-items: center;
+    padding: 2vmax 1vmax;
   }
 
   .leftFooter,
@@ -106,23 +114,34 @@
     width: 100%; /* full width */
     align-items: center;
     text-align: center;
+    margin-bottom: 2vmax; /* spacing between columns */
   }
 
   .footerLogo {
-    width: 100px;
+    width: 120px; /* slightly bigger logo for mobile */
+    margin-bottom: 1vmax;
   }
 
   .leftFooter > h4,
   .midFooter > h4,
   .rightFooter > h4,
   .fourthFooter > h4 {
-    font-size: 3.5vw;
+    font-size: 1.5rem; /* readable size */
+    margin-bottom: 0.8rem;
   }
 
   .leftFooter > p,
   .midFooter > p,
   .rightFooter > a,
   .fourthFooter > a {
-    font-size: 2.5vw;
+    font-size: 1rem; /* consistent size */
+    margin: 0.3rem 0;
+    line-height: 1.6;
+  }
+
+  .rightFooter > a,
+  .fourthFooter > a {
+    display: inline-block;
+    padding: 0.2rem 0; /* spacing between links */
   }
 }

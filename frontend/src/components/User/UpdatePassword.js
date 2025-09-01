@@ -6,7 +6,10 @@ import {
   DialogActions,
   TextField,
   Button,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "../../features/userAction";
 import { toast } from "react-toastify";
@@ -21,12 +24,20 @@ export default function UpdatePassword({ open, handleClose }) {
     confirmPassword: "",
   });
 
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.newPassword !== formData.confirmPassword) {
+      toast.error("New password and confirm password do not match");
+      return;
+    }
     try {
       await dispatch(updatePassword(formData)).unwrap();
       toast.success("Password updated successfully!");
@@ -42,42 +53,89 @@ export default function UpdatePassword({ open, handleClose }) {
       <DialogTitle>Update Password</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent dividers>
+          {/* Old Password */}
           <TextField
             label="Old Password"
-            type="password"
+            type={showOldPassword ? "text" : "password"}
             name="oldPassword"
             value={formData.oldPassword}
             onChange={handleChange}
             fullWidth
             margin="dense"
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowOldPassword(!showOldPassword)}
+                    edge="end"
+                  >
+                    {showOldPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
+          {/* New Password */}
           <TextField
             label="New Password"
-            type="password"
+            type={showNewPassword ? "text" : "password"}
             name="newPassword"
             value={formData.newPassword}
             onChange={handleChange}
             fullWidth
             margin="dense"
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    edge="end"
+                  >
+                    {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
+          {/* Confirm Password */}
           <TextField
             label="Confirm Password"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
             fullWidth
             margin="dense"
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button type="submit" variant="contained" color="primary" disabled={loading}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+          >
             {loading ? "Updating..." : "Update"}
           </Button>
         </DialogActions>
