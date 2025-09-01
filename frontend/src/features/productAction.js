@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const API_URL = process.env.REACT_APP_API_URL
 // Fetch all products (user & admin)
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async ({ keyword = "", page = 1, price = [0, 25000] } = {}, { rejectWithValue }) => {
     try {
-      const link = `/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      const link = `${API_URL}/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
       const { data } = await axios.get(link);
       return data;
     } catch (error) {
@@ -20,7 +20,7 @@ export const getProductDetails = createAsyncThunk(
   "products/getProductDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/product/${id}`);
+      const { data } = await axios.get(`${API_URL}/product/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -40,7 +40,7 @@ export const createProduct = createAsyncThunk(
           withCredentials: true,
         },
       };
-      const { data } = await axios.post("/api/v1/admin/product/new", productData, config);
+      const { data } = await axios.post(`${API_URL}/admin/product/new`, productData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -60,7 +60,7 @@ export const updateProduct = createAsyncThunk(
           withCredentials: true,
         },
       };
-      const { data } = await axios.put(`/api/v1/admin/product/${id}`, formData, config);
+      const { data } = await axios.put(`${API_URL}/admin/product/${id}`, formData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -75,7 +75,7 @@ export const deleteProduct = createAsyncThunk(
     try {
       
       const config = { headers: { withCredentials: true, } };
-      const { data } = await axios.delete(`/api/v1/admin/product/${id}`, config);
+      const { data } = await axios.delete(`${API_URL}/admin/product/${id}`, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -95,7 +95,7 @@ export const createProductReview = createAsyncThunk(
           withCredentials: true,
         },
       };
-      const { data } = await axios.put("/api/v1/review", reviewData, config);
+      const { data } = await axios.put(`${API_URL}/review`, reviewData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -108,7 +108,7 @@ export const getProductReviews = createAsyncThunk(
   "products/getReviews",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/reviews?productId=${id}`);
+      const { data } = await axios.get(`${API_URL}/reviews?productId=${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -123,7 +123,7 @@ export const deleteReview = createAsyncThunk(
     try {
       
       const config = { headers: { withCredentials: true, } };
-      const { data } = await axios.delete(`/api/v1/reviews?reviewId=${reviewId}&productId=${productId}`, config);
+      const { data } = await axios.delete(`${API_URL}/reviews?reviewId=${reviewId}&productId=${productId}`, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -144,7 +144,7 @@ export const updateReview = createAsyncThunk(
       };
 
       // Assuming your backend route looks like: PUT /api/v1/review/:id
-      const { data } = await axios.put(`/api/v1/review/${reviewId}`, reviewData, config);
+      const { data } = await axios.put(`${API_URL}/review/${reviewId}`, reviewData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);

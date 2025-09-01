@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const API_URL = process.env.REACT_APP_API_URL
 // Create new order
 export const createOrder = createAsyncThunk(
   "order/createOrder",
@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.post("/api/v1/order/new", orderData, config);
+      const { data } = await axios.post(`${API_URL}/order/new`, orderData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -33,7 +33,7 @@ export const getOrderDetails = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.get(`/api/v1/order/${id}`,config);
+      const { data } = await axios.get(`${API_URL}/order/${id}`,config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -53,7 +53,7 @@ export const myOrders = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.get("/api/v1/orders/me",config);
+      const { data } = await axios.get(`${API_URL}/orders/me`,config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -73,7 +73,7 @@ export const getAllOrders = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.get("/api/v1/admin/orders",config);
+      const { data } = await axios.get(`${API_URL}/admin/orders`,config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -93,7 +93,7 @@ export const updateOrder = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.put(`/api/v1/admin/order/${id}`, orderData, config);
+      const { data } = await axios.put(`${API_URL}/admin/order/${id}`, orderData, config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
@@ -113,7 +113,7 @@ export const deleteOrder = createAsyncThunk(
          },
         
       };
-      const { data } = await axios.delete(`/api/v1/admin/order/${id}`,config);
+      const { data } = await axios.delete(`${API_URL}/admin/order/${id}`,config);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);

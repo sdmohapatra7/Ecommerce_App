@@ -8,17 +8,36 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  CircularProgress,
 } from "@mui/material";
 import { MdEmail } from "react-icons/md";
 import { Close } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../../features/userAction";
+import { toast } from "react-toastify";
 
 export default function ForgotPassword({ open, handleClose }) {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user); // optional loading state from Redux
+
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Reset link sent to:", email);
-    handleClose(); // close popup after submit
+
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    try {
+      const result = await dispatch(forgotPassword({ email })).unwrap();
+      toast.success(result.message || "Reset link sent to your email!");
+      setEmail(""); // reset input
+      handleClose(); // close modal
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -59,11 +78,17 @@ export default function ForgotPassword({ open, handleClose }) {
           />
 
           <DialogActions sx={{ mt: 2 }}>
-            <Button onClick={handleClose} color="secondary">
+            <Button onClick={handleClose} color="secondary" disabled={loading}>
               Cancel
             </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Send Reset Link
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+              startIcon={loading ? <CircularProgress size={20} /> : null}
+            >
+              {loading ? "Sending..." : "Send Reset Link"}
             </Button>
           </DialogActions>
         </form>

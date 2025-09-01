@@ -1,10 +1,30 @@
 const express = require('express');
-
+const cors = require("cors");
 const app = express();
 
 const cookieParser = require('cookie-parser');
 
 const errorMiddlewair = require('./middleware/error');
+
+const allowedOrigins = [
+  'http://192.168.29.155:3000',
+  'http://localhost:3000',
+  'http://0.0.0.0:3000'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(cookieParser());

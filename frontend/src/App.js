@@ -25,7 +25,6 @@ import Login from "./components/User/Login";
 import Signup from "./components/User/Signup";
 import Profile from "./components/User/Profile";
 import UpdateProfile from "./components/User/UpdateProfile";
-import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
 
@@ -123,14 +122,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <UpdateProfile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/password/update"
-            element={
-              <ProtectedRoute>
-                <UpdatePassword />
               </ProtectedRoute>
             }
           />

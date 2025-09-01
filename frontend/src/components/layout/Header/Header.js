@@ -14,6 +14,8 @@ import logo from "../../images/logo.png";
 import "./Header.css";
 
 import ForgotPassword from "../../User/ForgotPassword";
+import UpdatePassword from "../../User/UpdatePassword";
+
 import Profile from "../../User/Profile";
 
 export default function Header() {
@@ -21,6 +23,8 @@ export default function Header() {
   const [showProductMenu, setShowProductMenu] = useState(false);
   const [openForgot, setOpenForgot] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openUpdatePass, setOpenUpdatePass] = useState(false);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -122,6 +126,13 @@ export default function Header() {
                   >
                     Forgot Password
                   </button>
+                  <button
+                    className="custum-btn"
+                    onClick={() => setOpenUpdatePass(true)}
+                  >
+                    Update Password
+                  </button>
+
                   {/* ✅ Proper logout */}
                   <button className="custum-btn" onClick={handleLogout}>
                     Logout
@@ -142,6 +153,11 @@ export default function Header() {
         open={openProfile}
         handleClose={() => setOpenProfile(false)}
       />
+      <UpdatePassword
+        open={openUpdatePass}
+        handleClose={() => setOpenUpdatePass(false)}
+      />
+
     </header>
   );
 }
