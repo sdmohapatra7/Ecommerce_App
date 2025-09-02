@@ -156,6 +156,35 @@
   color: #666;
   margin-top: 2rem;
 }
+.checkoutBtn {
+  background-color: #ff4c3b; /* red-orange button */
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.checkoutBtn:hover {
+  background-color: #e04334; /* slightly darker */
+  transform: translateY(-2px);
+}
+
+.checkoutBtn:active {
+  transform: translateY(0);
+}
+
+.checkoutBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

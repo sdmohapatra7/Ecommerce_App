@@ -4,8 +4,10 @@ import { getCartItems, removeCartItem, addToCart } from "../../features/cartActi
 import Loader from "../layout/Loader/Loader";
 import { toast } from "react-toastify";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems, totalPrice, loading, error } = useSelector((state) => state.cart);
 
@@ -78,6 +80,12 @@ export default function Cart() {
             </div>
           ))}
           <h3 className="cartTotal">Total: ₹{totalPrice}</h3>
+          <button
+            className="checkoutBtn"
+            onClick={() => navigate("/shipping")}
+          >
+            Proceed to Checkout
+          </button>
         </div>
       )}
     </div>

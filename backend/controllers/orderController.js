@@ -17,7 +17,7 @@ exports.newOrder = catchAsyncError(async(req,res,next)=>{
         taxPrice,
         shippingPrice,
         totalPrice,
-        paidAt:Date.now(),
+        paidAt:paymentInfo.status === "Cash On Delivery" ? null : Date.now(),
         user:req.user._id
     });
 
