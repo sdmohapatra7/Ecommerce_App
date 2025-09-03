@@ -2,7 +2,7 @@ const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
-
+const Cart = require("../models/cartModel");
 //create new order....
 exports.newOrder = catchAsyncError(async(req,res,next)=>{
 
@@ -20,6 +20,10 @@ exports.newOrder = catchAsyncError(async(req,res,next)=>{
         paidAt:paymentInfo.status === "Cash On Delivery" ? null : Date.now(),
         user:req.user._id
     });
+    await Cart.findOneAndUpdate(
+        { user: req.user._id },
+        { $set: { cartItems: [] } }
+    );
 
     res.status(201).json({
         success: true,

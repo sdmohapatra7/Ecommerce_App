@@ -12,7 +12,7 @@ export default function Payment() {
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo") || "{}");
   const shippingInfo = JSON.parse(sessionStorage.getItem("shippingInfo") || "{}");
-  const orderId = sessionStorage.getItem("orderId") || "dummy_order_id";
+  const orderId = orderInfo.orderId || "dummy_order_id";
 
   useEffect(() => {
     const script = document.createElement("script");

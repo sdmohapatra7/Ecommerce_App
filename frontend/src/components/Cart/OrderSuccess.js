@@ -1,7 +1,7 @@
 // src/components/Cart/OrderSuccess.js
 import React from "react";
 import { Link } from "react-router-dom";
-// import "./OrderSuccess.css";
+import "./OrderSuccess.css";
 
 export default function OrderSuccess() {
   return (

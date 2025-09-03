@@ -35,7 +35,6 @@ import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import Payment from "./components/Cart/Payment";
 import OrderSuccess from "./components/Cart/OrderSuccess";
 import MyOrders from "./components/Order/MyOrders";
-import OrderDetails from "./components/Order/OrderDetails";
 
 // Admin
 import Dashboard from "./components/Admin/Dashboard";
@@ -142,14 +141,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/order/:id"
-            element={
-              <ProtectedRoute>
-                <OrderDetails />
-              </ProtectedRoute>
-            }
-          />
+        
 
           {/* Cart & Checkout (protected) */}
           <Route
@@ -185,7 +177,7 @@ useEffect(() => {
             }
           />
           <Route
-            path="/success"
+            path="/order/success"
             element={
               <ProtectedRoute>
                 <OrderSuccess />

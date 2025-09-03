@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../features/orderAction";
 import "./ConfirmOrder.css";
+import { clearCart } from "../../features/cartAction";
 
 export default function ConfirmOrder() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function ConfirmOrder() {
     dispatch(createOrder(orderData))
       .unwrap()
       .then((res) => {
+        dispatch(clearCart());
         // save order info for payment page
         sessionStorage.setItem(
           "orderInfo",
