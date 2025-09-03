@@ -60,7 +60,7 @@ export default function OrderList() {
                 </td>
                 <td>₹{order.totalPrice}</td>
                 <td>
-                  {order.paymentInfo?.status === "Cash On Delivery"
+                  {order.paymentInfo?.status === "Cash On Delivery" || "Success"
                     ? "✅ Paid"
                     : "❌ Pending"}
                 </td>
