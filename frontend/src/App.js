@@ -42,7 +42,6 @@ import ProductList from "./components/Admin/ProductList";
 import NewProduct from "./components/Admin/NewProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
-import ProcessOrder from "./components/Admin/ProcessOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
 import ProductReviews from "./components/Admin/ProductReviews";
@@ -223,14 +222,6 @@ useEffect(() => {
             element={
               <ProtectedRoute isAdmin={true}>
                 <OrderList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/order/:id"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <ProcessOrder />
               </ProtectedRoute>
             }
           />

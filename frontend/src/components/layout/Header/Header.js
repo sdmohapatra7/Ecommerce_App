@@ -70,8 +70,14 @@ export default function Header() {
         </div>
 
         {isAuthenticated && user?.role === "admin" && (
+          <>          
           <Link to="/admin/users">User Management</Link>
+          <Link to="/admin/orders">Orders</Link>
+          </>
+
         )}
+        
+        
       </nav>
 
       {/* Right Icons */}
@@ -148,7 +154,10 @@ export default function Header() {
         </div>
 
         {isAuthenticated && user?.role === "admin" && (
+          <>
           <Link to="/admin/users" onClick={() => setMobileMenuOpen(false)}>User Management</Link>
+          <Link to="/admin/orders" onClick={() => setMobileMenuOpen(false)}>Orders</Link>
+          </>
         )}
 
         {!isAuthenticated ? (
