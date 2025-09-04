@@ -11,7 +11,7 @@ export default function Payment() {
   const [loading, setLoading] = useState(false);
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo") || "{}");
-  const shippingInfo = JSON.parse(sessionStorage.getItem("shippingInfo") || "{}");
+  // const shippingInfo = JSON.parse(sessionStorage.getItem("shippingInfo") || "{}");
   const orderId = orderInfo.orderId || "dummy_order_id";
 
   useEffect(() => {

@@ -73,12 +73,17 @@ export default function OrderList() {
                   })}
                 </td>
                 <td className="actions">
-                  <button
-                    className="editBtn"
-                    onClick={() => setSelectedOrder(order)}
-                  >
-                    Edit
-                  </button>
+                  {/* Show Edit button only if order is not delivered */}
+                  {order.orderStatus !== "Delivered" && (
+                    <button
+                      className="editBtn"
+                      onClick={() => setSelectedOrder(order)}
+                    >
+                      Edit
+                    </button>
+                  )}
+
+                  {/* Delete button should always show */}
                   <button
                     className="deleteBtn"
                     onClick={() => handleDelete(order._id)}
@@ -86,6 +91,7 @@ export default function OrderList() {
                     Delete
                   </button>
                 </td>
+
               </tr>
             ))}
           </tbody>

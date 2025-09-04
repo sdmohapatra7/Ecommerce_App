@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const sendToken = require('../utils/jwtToken');
 const sandEmail = require('../utils/sandEmail');
 const crypto = require('crypto');
+const { ForgotPasswordTemplate } = require('../utils/emailTemplates');
 
 //Register A User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -81,27 +82,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     //     Thank you,  
     //     ESmart
     //     `;
-      const message = `
-<html>
-  <body style="font-family: Arial, sans-serif; color: #333;">
-    <p>Dear User,</p>
-
-    <p>You are receiving this email because a request was made to reset the password for your <strong>ESmart</strong> account.</p>
-
-    <p>
-      Please click the link below to reset your password:<br>
-      <a href="${resetPasswordUrl}" style="color: #1a73e8;">Reset Password</a>
-    </p>
-
-    <p><strong>Note:</strong> This link will expire in 15 minutes.</p>
-
-    <p>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
-
-    <p>Best regards,<br>
-    <strong>ESmart Team</strong></p>
-  </body>
-</html>
-`;
+      
 
 
 
@@ -109,7 +90,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
         await sandEmail({
             email: user.email,
             subject: 'ESmart Password Recovery',
-            message,
+            message:ForgotPasswordTemplate(resetPasswordUrl)
         })
 
         res.status(200).json({

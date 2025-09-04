@@ -1,8 +1,12 @@
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
+const User = require("../models/userModel");
+const Cart = require("../models/cartModel");
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
-const Cart = require("../models/cartModel");
+
+const { orderConfirmationTemplate, orderStatusUpdateTemplate } = require('../utils/emailTemplates');
+const sandEmail = require('../utils/sandEmail');
 //create new order....
 exports.newOrder = catchAsyncError(async(req,res,next)=>{
 
@@ -24,6 +28,18 @@ exports.newOrder = catchAsyncError(async(req,res,next)=>{
         { user: req.user._id },
         { $set: { cartItems: [] } }
     );
+
+    let user = order.user;
+    
+    user = await User.findById(order.user); // fallback
+    
+    if (user?.email) {
+        await sandEmail({
+            email: user.email,
+            subject: 'Order Confirmation - Esmart',
+            message:orderConfirmationTemplate(order)
+        })
+    }
 
     res.status(201).json({
         success: true,
@@ -94,6 +110,19 @@ exports.updateOrder = catchAsyncError(async(req,res,next)=>{
     }
 
     await order.save({validateBeforeSave: false });
+
+    let user = order.user;
+
+    user = await User.findById(order.user); // fallback
+
+
+    if (user?.email) {
+        await sandEmail({
+            email: user.email,
+            subject: `Your Order #${order._id} Status Updated`,
+            message:orderStatusUpdateTemplate(order)
+        })
+    }
 
     return res.status(200).json({
         success: true,

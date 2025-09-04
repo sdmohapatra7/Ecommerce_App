@@ -3,6 +3,9 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const Payment = require("../models/paymentModel");
 const Order = require("../models/orderModel");
+const User = require("../models/userModel");
+const { paymentConfirmedTemplate } = require("../utils/emailTemplates");
+const sandEmail = require("../utils/sandEmail");
 
 // ✅ Razorpay instance
 const razorpay = new Razorpay({
@@ -109,7 +112,18 @@ exports.verifyRazorpay = async (req, res) => {
         };
         order.orderStatus = "Confirmed";
         await order.save();
-
+        let user = order.user;
+            
+        user = await User.findById(order.user); // fallback
+        
+        if (user?.email) {
+            await sandEmail({
+                email: user.email,
+                subject: 'Payment Confirmation - Esmart',
+                message:paymentConfirmedTemplate(order)
+            })
+        }
+        
         res.status(200).json({ success: true, payment });
     } catch (err) {
         res.status(500).json({ message: err.message });
