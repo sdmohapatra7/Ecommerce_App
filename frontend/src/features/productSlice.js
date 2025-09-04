@@ -18,7 +18,7 @@ const initialState = {
   loading: false,
   error: null,
   productsCount: 0,
-  resultPerPage: 0,
+  resultPerPage: 4,
   success: false,
   reviews: [],
 };

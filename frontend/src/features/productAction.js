@@ -4,7 +4,7 @@ import api from "../api"; // your common Axios instance
 // Fetch all products (user & admin)
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({ keyword = "", page = 1, price = [0, 25000] } = {}, { rejectWithValue }) => {
+  async ({ keyword = "", page = 1, price = [0, 250000] } = {}, { rejectWithValue }) => {
     try {
       const link = `/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
       const { data } = await api.get(link);

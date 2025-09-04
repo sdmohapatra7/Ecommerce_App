@@ -14,7 +14,7 @@ export default function Products() {
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [price, setPrice] = useState([0, 25000]);
+    const [price, setPrice] = useState([0, 250000]);
 
     const { products, loading, error, productsCount, resultPerPage } = useSelector((state) => state.products);
 
@@ -65,7 +65,7 @@ export default function Products() {
                             valueLabelDisplay="auto"
                             aria-labelledby="range-slider"
                             min={0}
-                            max={25000}
+                            max={250000}
                         />
                     </div>
 
