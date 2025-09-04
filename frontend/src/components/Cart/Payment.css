@@ -39,12 +39,12 @@
 }
 
 .paymentContainer button:last-of-type {
-  background: #ff4c3b;
+  background: #09d31a;
   color: #fff;
 }
 
 .paymentContainer button:last-of-type:hover {
-  background: #e04334;
+  background: #09d31a;
   transform: translateY(-2px);
 }
 

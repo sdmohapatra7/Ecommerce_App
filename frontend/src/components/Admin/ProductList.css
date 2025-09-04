@@ -2,6 +2,13 @@
   padding: 20px;
   overflow-x: auto;
 }
+.productListTable h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
 
 .productListTable table {
   width: 100%;
@@ -48,19 +55,28 @@
 
 .editBtn,
 .deleteBtn {
-  display: flex;
+  /* display: flex;
   align-items: center;
   gap: 5px;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.9rem; */
+    padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .editBtn {
-  color: green;
+  background: green;
+  text-decoration: none;
+  color: #fff;
 }
 
 .deleteBtn {
-  color: #c0392b;
+  background: #c0392b;
+  color: #fff;
 }

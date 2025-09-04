@@ -23,7 +23,8 @@
 }
 
 .ordersTable th {
-  background: #2c3e50;
+  /* background: #2c3e50; */
+  background: #09d31a;
   color: #fff;
   padding: 14px 16px;
   text-align: left;

@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-import {
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, Button
-} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers, deleteUser } from "../../features/userManagementAction";
 import { clearErrors, clearMessage } from "../../features/userManagementSlice";
 import UpdateUser from "./UpdateUser";
 import Loader from "../layout/Loader/Loader";
 import { toast } from "react-toastify";
+import "./UsersList.css";
 
 export default function UsersList() {
   const dispatch = useDispatch();
-  const { users, error, message, loading } = useSelector((state) => state.userManagement);
+  const { users, error, message, loading } = useSelector(
+    (state) => state.userManagement
+  );
 
   const [selectedUser, setSelectedUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
@@ -44,59 +43,59 @@ export default function UsersList() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      dispatch(deleteUser(id))
-      .then(() => {
-        dispatch(getAllUsers()); // refresh grid
+      dispatch(deleteUser(id)).then(() => {
+        dispatch(getAllUsers()); // refresh list
       });
     }
   };
 
-  // 🔹 Show loader while fetching or deleting
-  if (loading) {
-    return <Loader />;
-  }
+  if (loading) return <Loader />;
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="usersListTable">
       <h2>Users List</h2>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell><b>Name</b></TableCell>
-              <TableCell><b>Email</b></TableCell>
-              <TableCell><b>Role</b></TableCell>
-              <TableCell><b>Action</b></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users?.map((user) => (
-              <TableRow key={user._id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(user)}
-                    style={{ marginRight: "10px" }}
+      {users?.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>
+                  <span
+                    className={
+                      user.role === "admin" ? "adminRole" : "userRole"
+                    }
                   >
+                    {user.role}
+                  </span>
+                </td>
+                <td className="actionsCell">
+                  <button className="editBtn" onClick={() => handleEdit(user)}>
                     Edit
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
+                  </button>
+                  <button
+                    className="deleteBtn"
                     onClick={() => handleDelete(user._id)}
                   >
                     Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
+                  </button>
+                </td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      ) : (
+        <p>No users found.</p>
+      )}
 
       {selectedUser && (
         <UpdateUser open={open} handleClose={handleClose} user={selectedUser} />

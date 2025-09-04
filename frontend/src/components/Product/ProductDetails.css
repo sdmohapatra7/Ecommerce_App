@@ -343,17 +343,20 @@
   }
 
   .detailsBlock-3-1-1 {
-    padding: 2vmax 0;
+    /* padding: 1rem 0; */
+    gap: 0.3rem;
   }
+
   .detailsBlock-3-1-1 > button {
-    padding: 1.2vmax;
-    width: 4vmax;
+    padding: 0.8rem;
+    width: 3rem;
+    font-size: 1rem;
   }
 
   .detailsBlock-3-1-1 > input {
-    padding: 1.5vmax;
-    width: 3vmax;
-    font: 400 1.8vmax;
+    padding: 0.6rem;
+    width: 2.5rem;
+    font-size: 1rem;
   }
 
   .detailsBlock-3-1 > button:last-child {
@@ -378,7 +381,7 @@
   }
 
   .submitReviewContainer {
-    width: 90%;
+    width: 100%;
     align-items: center;
   }
 

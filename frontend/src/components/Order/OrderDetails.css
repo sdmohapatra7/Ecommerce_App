@@ -46,7 +46,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: #f44336;
+  background: #09d31a;
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -60,10 +60,10 @@
 }
 
 .orderDetailsContainer .closeBtn:hover {
-  background: #d32f2f;
+  background: #09d31a;
 }
 .retryBtn {
-  background: #ff4d4f;
+  background: #09d31a;
   color: white;
   padding: 10px 15px;
   margin: 10px 0;
@@ -74,7 +74,7 @@
 }
 
 .retryBtn:hover {
-  background: #e63946;
+  background: #09d31a;
 }
 
 @keyframes slideDown {

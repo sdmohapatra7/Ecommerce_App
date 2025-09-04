@@ -36,6 +36,7 @@ const handleDelete = (id) => {
 
   return (
     <div className="productListTable">
+      <h2>Product List</h2>
       {products.length > 0 ? (
         <table>
           <thead>
@@ -60,13 +61,15 @@ const handleDelete = (id) => {
                 </td>
                 <td className="actionsCell">
                   <Link to={`/admin/product/${product._id}`} className="editBtn">
-                    <MdEdit />
+                    {/* <MdEdit /> */}
+                    Edit
                   </Link>
                   <button
                     className="deleteBtn"
                     onClick={() => handleDelete(product._id)}
                   >
-                    <MdDelete />
+                    Delete
+                    {/* <MdDelete /> */}
                   </button>
                 </td>
               </tr>

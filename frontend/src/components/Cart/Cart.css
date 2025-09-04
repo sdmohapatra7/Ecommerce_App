@@ -121,7 +121,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #e63946;
+  background: #09d31a;
   color: white;
   border: none;
   border-radius: 50%;
@@ -137,7 +137,7 @@
 }
 
 .removeBtn:hover {
-  background: #c82333;
+  background: #09d31a;
 }
 
 /* Total */
@@ -157,7 +157,7 @@
   margin-top: 2rem;
 }
 .checkoutBtn {
-  background-color: #ff4c3b; /* red-orange button */
+  background-color: #09d31a; /* red-orange button */
   color: #fff;
   border: none;
   outline: none;
@@ -172,7 +172,7 @@
 }
 
 .checkoutBtn:hover {
-  background-color: #e04334; /* slightly darker */
+  background-color: #09d31a; /* slightly darker */
   transform: translateY(-2px);
 }
 

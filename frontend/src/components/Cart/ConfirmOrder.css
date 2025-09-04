@@ -70,7 +70,7 @@
   display: block;
   width: 100%;
   padding: 14px;
-  background: #ff4c3b;
+  background: #09d31a;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -80,7 +80,7 @@
 }
 
 .cartSummary button:hover {
-  background: #e04334;
+  background: #09d31a;
   transform: translateY(-2px);
 }
 
