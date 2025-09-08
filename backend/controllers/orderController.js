@@ -7,6 +7,7 @@ const catchAsyncError = require('../middleware/catchAsyncError');
 
 const { orderConfirmationTemplate, orderStatusUpdateTemplate } = require('../utils/emailTemplates');
 const sandEmail = require('../utils/sandEmail');
+const { sendSMS, sendWhatsApp } = require('../utils/twilio');
 //create new order....
 exports.newOrder = catchAsyncError(async(req,res,next)=>{
 
@@ -39,6 +40,13 @@ exports.newOrder = catchAsyncError(async(req,res,next)=>{
             subject: 'Order Confirmation - Esmart',
             message:orderConfirmationTemplate(order)
         })
+    }
+    const userPhone = `+91${shippingInfo.phoneNo}`; // Make sure phone is saved in user profile
+    const message = `Hi ${user.name || "Customer"}, your order #${order._id} has been placed successfully. Total: ₹${order.totalPrice}.`;
+
+    if (userPhone) {
+        sendSMS(userPhone, message);
+        sendWhatsApp(userPhone, message);
     }
 
     res.status(201).json({
