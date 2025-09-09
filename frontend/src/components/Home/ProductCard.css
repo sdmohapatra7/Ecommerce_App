@@ -8,6 +8,7 @@
   text-align: center;
   transition: box-shadow 0.3s ease;
   color: black;
+  position: relative; /* for heart position */
 }
 
 .productCard:hover {
@@ -19,16 +20,31 @@
   height: 180px;
   object-fit: cover;
 }
+
 .rating-review {
   display: flex;
-  flex-direction: column; /* stack vertically */
-  align-items: center;    /* center align */
+  flex-direction: column;
+  align-items: center;
   margin-top: 0.5rem;
 }
+
 .productCardReview {
-  display: block;  /* pushes it to next line */
   margin-top: 0.2rem;
   font-size: 0.9rem;
   color: gray;
 }
 
+.wishlistBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: transform 0.2s;
+}
+
+.wishlistBtn:hover {
+  transform: scale(1.2);
+}

@@ -1,6 +1,7 @@
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const User = require('../models/userModel');
+const Product = require('../models/productModel');
 const sendToken = require('../utils/jwtToken');
 const sandEmail = require('../utils/sandEmail');
 const crypto = require('crypto');
@@ -134,7 +135,8 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 //get user details
 exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 
-    const user = await User.findById(req.user.id);
+    // const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id).populate("wishlist");
 
     res.status(200).json({
         success: true,
@@ -243,4 +245,60 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
         message: 'User deleted successfully'
     });
 
+});
+
+// ➕ Add to Wishlist
+exports.addToWishlist = catchAsyncError(async (req, res, next) => {
+  const productId = req.params.id;
+
+  // Check if product exists
+  const product = await Product.findById(productId);
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  const user = await User.findById(req.user.id);
+
+  // Check if already in wishlist
+  if (user.wishlist.includes(productId)) {
+    return next(new ErrorHandler("Product already in wishlist", 400));
+  }
+
+  user.wishlist.push(productId);
+  await user.save();
+
+  // re-fetch user with populated wishlist
+  const updatedUser = await User.findById(req.user.id).populate("wishlist");
+
+  res.status(200).json({
+    success: true,
+    message: "Product added to wishlist",
+    wishlist: updatedUser.wishlist, // full product details
+  });
+});
+
+
+// ➖ Remove from Wishlist
+exports.removeFromWishlist = catchAsyncError(async (req, res, next) => {
+  const productId = req.params.id;
+
+  const user = await User.findById(req.user.id);
+
+  if (!user.wishlist.includes(productId)) {
+    return next(new ErrorHandler("Product not in wishlist", 400));
+  }
+
+  user.wishlist = user.wishlist.filter(
+    (id) => id.toString() !== productId.toString()
+  );
+  await user.save();
+
+  //  re-fetch user with populated wishlist
+  const updatedUser = await User.findById(req.user.id).populate("wishlist");
+
+  res.status(200).json({
+    success: true,
+    message: "Product removed from wishlist",
+    wishlist: updatedUser.wishlist, // full product details
+  });
 });

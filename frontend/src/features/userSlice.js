@@ -8,6 +8,8 @@ import {
   updatePassword,
   forgotPassword,
   resetPassword,
+  addWishlist,
+  deleteWishlist,
 } from "./userAction";
 
 const userSlice = createSlice({
@@ -132,6 +134,29 @@ const userSlice = createSlice({
         // state.message = "Password reset successful";
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      }).addCase(addWishlist.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addWishlist.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload; // update user with new wishlist
+      })
+      .addCase(addWishlist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Remove Wishlist
+      .addCase(deleteWishlist.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteWishlist.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(deleteWishlist.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

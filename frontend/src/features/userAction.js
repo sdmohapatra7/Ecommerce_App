@@ -110,3 +110,28 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+export const addWishlist = createAsyncThunk(
+  "user/addWishlist",
+  async (productId, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post(`/wishlist/add/${productId}`, {
+        headers: { "Content-Type": "application/json" },
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+export const deleteWishlist = createAsyncThunk(
+  "user/deleteWishlist",
+  async ( productId , { rejectWithValue }) => {
+    try {
+      const { data } = await api.delete(`/wishlist/remove/${productId}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
