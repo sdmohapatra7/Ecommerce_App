@@ -1,8 +1,13 @@
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
+const User = require("../models/userModel");
+const Cart = require("../models/cartModel");
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middleware/catchAsyncError');
 
+const { orderConfirmationTemplate, orderStatusUpdateTemplate } = require('../utils/emailTemplates');
+const sandEmail = require('../utils/sandEmail');
+const { sendSMS, sendWhatsApp } = require('../utils/twilio');
 //create new order....
 exports.newOrder = catchAsyncError(async(req,res,next)=>{
 
@@ -17,9 +22,32 @@ exports.newOrder = catchAsyncError(async(req,res,next)=>{
         taxPrice,
         shippingPrice,
         totalPrice,
-        paidAt:Date.now(),
+        paidAt:paymentInfo.status === "Cash On Delivery" ? null : Date.now(),
         user:req.user._id
     });
+    await Cart.findOneAndUpdate(
+        { user: req.user._id },
+        { $set: { cartItems: [] } }
+    );
+
+    let user = order.user;
+    
+    user = await User.findById(order.user); // fallback
+    
+    if (user?.email) {
+        await sandEmail({
+            email: user.email,
+            subject: 'Order Confirmation - Esmart',
+            message:orderConfirmationTemplate(order)
+        })
+    }
+    const userPhone = `+91${shippingInfo.phoneNo}`; // Make sure phone is saved in user profile
+    const message = `Hi ${user.name || "Customer"}, your order #${order._id} has been placed successfully. Total: ₹${order.totalPrice}.`;
+
+    if (userPhone) {
+        sendSMS(userPhone, message);
+        sendWhatsApp(userPhone, message);
+    }
 
     res.status(201).json({
         success: true,
@@ -90,6 +118,19 @@ exports.updateOrder = catchAsyncError(async(req,res,next)=>{
     }
 
     await order.save({validateBeforeSave: false });
+
+    let user = order.user;
+
+    user = await User.findById(order.user); // fallback
+
+
+    if (user?.email) {
+        await sandEmail({
+            email: user.email,
+            subject: `Your Order #${order._id} Status Updated`,
+            message:orderStatusUpdateTemplate(order)
+        })
+    }
 
     return res.status(200).json({
         success: true,

@@ -1,18 +1,21 @@
-import React from 'react';
-import { Rating } from "@material-ui/lab";
-import profilePng from "../images/profile.png";
-export default function ReviewCard({ review }) {
-    const options = {
-        value: review.rating,
-        readOnly: true,
-        precision: 0.5,
-    };
-    return (
-        <div className="reviewCard">
-            <img src={profilePng} alt="User" />
-            <p>{review.name}</p>
-            <Rating {...options} />
-            <span className="reviewCardComment">{review.comment}</span>
+// src/components/Product/ReviewCard.js
+import React from "react";
+import Rating from "@mui/material/Rating";
+import "./ProductDetails.css";
+
+export default function ReviewCard({ review, isOwner, onEdit, onDelete }) {
+  return (
+    <div className="reviewCard">
+      <p className="reviewUser">{review.name}</p>
+      <Rating value={review.rating} readOnly precision={0.5} />
+      <span className="reviewComment">{review.comment}</span>
+
+      {isOwner && (
+        <div className="reviewActions">
+          <button onClick={onEdit} className="btnSmall">Edit</button>
+          <button onClick={onDelete} className="btnSmall btnDanger">Delete</button>
         </div>
-    )
+      )}
+    </div>
+  );
 }

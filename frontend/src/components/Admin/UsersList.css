@@ -1,0 +1,115 @@
+.usersListTable {
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.usersListTable h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.usersListTable table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.usersListTable th,
+.usersListTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.usersListTable th {
+  background: #04c90d;
+  font-weight: 600;
+  color: #fff;
+}
+
+.adminRole {
+  color: #d35400;
+  font-weight: 600;
+}
+
+.userRole {
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 10px;
+}
+
+.editBtn,
+.deleteBtn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.editBtn {
+  background: green;
+  text-decoration: none;
+  color: #fff;
+}
+
+.deleteBtn {
+ text-decoration: none;
+  background: #c0392b;
+  color: #fff;
+}
+
+.editBtn:hover {
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.05);
+  text-decoration: underline;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+  .usersListTable table,
+  .usersListTable thead,
+  .usersListTable tbody,
+  .usersListTable th,
+  .usersListTable td,
+  .usersListTable tr {
+    display: block;
+    width: 100%;
+  }
+
+  .usersListTable tr {
+    margin-bottom: 12px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .usersListTable td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .usersListTable td:last-child {
+    border-bottom: none;
+  }
+
+  .usersListTable th {
+    display: none;
+  }
+}

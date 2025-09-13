@@ -3,19 +3,28 @@ const catchAsyncError = require("./catchAsyncError");
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
-exports.isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
-    const {token} = req.cookies;
+exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
+    let token;
 
-    // console.log(token);
-
-    if(!token){
-        return next(new ErrorHandler("Please Login To Access this resource",401));
+    // Check for token in Authorization header
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer ")
+    ) {
+        token = req.headers.authorization.split(" ")[1];
     }
 
-    const decodeData = jwt.verify(token,process.env.JWT_SECRET);
+    if (!token) {
+        return next(new ErrorHandler("Please login to access this resource", 401));
+    }
 
-    req.user = await User.findById(decodeData.id);
-    next();
+    try {
+        const decodeData = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = await User.findById(decodeData.id);
+        next();
+    } catch (err) {
+        return next(new ErrorHandler("Invalid or expired token", 401));
+    }
 });
 
 
