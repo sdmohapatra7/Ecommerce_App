@@ -4,6 +4,7 @@ import { getAllOrders, deleteOrder } from "../../features/orderAction";
 import Loader from "../layout/Loader/Loader";
 import "./AdminOrders.css";
 import ProcessOrder from "./ProcessOrder";
+import { Orderpdf } from "../../Utils/Orderpdf";
 
 export default function OrderList() {
   const dispatch = useDispatch();
@@ -90,6 +91,18 @@ export default function OrderList() {
                   >
                     Delete
                   </button>
+                  <button
+                      className="editBtn"
+                      onClick={() => Orderpdf(order,"download")}
+                    >
+                      Download
+                    </button>
+                    <button
+                      className="editBtn"
+                      onClick={() => Orderpdf(order,"print")}
+                    >
+                      Print
+                    </button>
                 </td>
 
               </tr>
