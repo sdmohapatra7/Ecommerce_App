@@ -52,6 +52,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { getCartItems } from "./features/cartAction.js";
 import FAQ from "./components/FAQs/FAQ.js";
 import Loader from "./components/layout/Loader/Loader.js";
+import InvoiceList from "./components/Admin/InvoiceList.js";
 
 
 function Layout({ children }) {
@@ -190,6 +191,14 @@ useEffect(() => {
             element={
               <ProtectedRoute isAdmin={true}>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/invoice"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <InvoiceList />
               </ProtectedRoute>
             }
           />

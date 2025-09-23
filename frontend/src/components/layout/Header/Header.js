@@ -73,6 +73,8 @@ export default function Header() {
           <>          
           <Link to="/admin/users">User Management</Link>
           <Link to="/admin/orders">Orders</Link>
+          <Link to="/admin/dashboard">Dashboard</Link>
+          <Link to="/admin/invoice">Invoice</Link>
           </>
 
         )}
@@ -157,6 +159,8 @@ export default function Header() {
           <>
           <Link to="/admin/users" onClick={() => setMobileMenuOpen(false)}>User Management</Link>
           <Link to="/admin/orders" onClick={() => setMobileMenuOpen(false)}>Orders</Link>
+          <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+          <Link to="/admin/invoice" onClick={() => setMobileMenuOpen(false)}>Invoice</Link>
           </>
         )}
 
