@@ -9,7 +9,6 @@ import { addWishlist, deleteWishlist } from "../../features/userAction";
 import './ProductCard.css';
 import noImage from '../images/no-image.png';
 import { toast } from 'react-toastify';
-import Loader from '../layout/Loader/Loader';
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);

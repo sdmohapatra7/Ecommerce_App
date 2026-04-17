@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts, deleteProduct } from "../../features/productAction";
 import { resetSuccess } from "../../features/productSlice";
 import { Link } from "react-router-dom";
-import { MdEdit, MdDelete } from "react-icons/md";
+
 import "./ProductList.css";
 import Loader from "../layout/Loader/Loader";
 import { toast } from "react-toastify";
