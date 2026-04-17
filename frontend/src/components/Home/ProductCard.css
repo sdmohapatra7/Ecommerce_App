@@ -8,7 +8,8 @@
   text-align: center;
   transition: box-shadow 0.3s ease;
   color: black;
-  position: relative; /* for heart position */
+  position: relative;
+  /* for heart position */
 }
 
 .productCard:hover {
