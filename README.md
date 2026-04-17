@@ -1,6 +1,8 @@
 Esmart is a modern full-stack ecommerce platform built with the MERN stack (MongoDB, Express.js, React, Node.js).
 It provides a seamless shopping experience for customers and powerful management tools for admins.
 
+**🚀 Live Website:** [https://ecommerce-app-eight-steel.vercel.app](https://ecommerce-app-eight-steel.vercel.app)
+
 Features:
 
 🛍️ User Features

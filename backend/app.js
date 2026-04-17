@@ -9,7 +9,8 @@ const errorMiddlewair = require('./middleware/error');
 const allowedOrigins = [
   'http://192.168.137.1:3000',
   'http://localhost:3000',
-  'http://0.0.0.0:3000'
+  'http://0.0.0.0:3000',
+  'https://ecommerce-app-eight-steel.vercel.app'
 ];
 
 if (process.env.FRONTEND_URL) {
