@@ -15,7 +15,8 @@ const sandEmail = async(options)=>{
         from: process.env.SMTP_MAIL,
         to: options.email,
         subject: options.subject,
-        text: options.message
+        // text: options.message //shows HTML as plain text
+        html: options.message //render HTML properly
     };
 
     await transporter.sendMail(mailOption);

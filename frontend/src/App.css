@@ -1,6 +1,7 @@
 * {
   margin: 0;
   scroll-behavior: smooth;
+  box-sizing: border-box; /* makes width calculations safe */
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -13,10 +14,56 @@ input::-webkit-inner-spin-button {
 /* input[type="number"] {
   -moz-appearance: textfield;
 } */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* hides unwanted horizontal scroll */
+    font-family: "Roboto", sans-serif;
+     height: 100%;     /* required */
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+
+/* footer always at bottom */
+footer {
+  flex-shrink: 0;
+  padding: 1vmax;
+  background: #ffffff; /* white background */
+  align-items: flex-start; /* align to top for multi-line content */
+  color: #242424; /* dark text for contrast */
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* subtle top shadow */
+}
+ #root, .appLayout {
+  height: 100%;
+  margin: 0;
+}
+
+.appLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.appMain {
+  flex: 1;  /* pushes footer down */
+}
+
+
+
+
 
 .greenColor {
   color: green !important;
 }
 .redColor {
   color: red !important;
+}
+.menuBurgerItem {
+  background-color: rgb(158, 155, 155) !important;
 }

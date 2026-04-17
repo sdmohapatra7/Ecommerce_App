@@ -1,23 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { Provider } from 'react-redux';
-import store from './store';
-import { positions, transitions, Provider as AlertProvider } from "react-alert";
-import AlertTemplate from 'react-alert-template-basic';
+// index.js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
-const options = {
-  timeout: 5000,
-  position: positions.BOTTOM_CENTER,
-  transition: transitions.SCALE,
-};
+// React-Toastify
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <AlertProvider template={AlertTemplate} {...options}>
+  // <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </AlertProvider>
-  </Provider>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </Provider>
+  // </React.StrictMode>
 );
-

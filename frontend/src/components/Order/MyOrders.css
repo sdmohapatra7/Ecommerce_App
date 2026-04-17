@@ -1,0 +1,42 @@
+/* MyOrders.css */
+
+.myOrdersContainer {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.myOrdersContainer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.orderItem {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.orderItem:hover {
+  transform: translateY(-3px);
+}
+
+.orderItem p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #444;
+}
+.paidStatus {
+  color: green;
+  font-weight: bold;
+}
+
+.unpaidStatus {
+  color: red;
+  font-weight: bold;
+}

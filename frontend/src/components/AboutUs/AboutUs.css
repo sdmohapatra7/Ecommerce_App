@@ -1,0 +1,42 @@
+.aboutContainer {
+  padding: 3vmax;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+.aboutTitle {
+  font-size: 3vmax;
+  color: #28c74f;
+  text-align: center;
+  margin-bottom: 1.5vmax;
+}
+
+.aboutSubtitle {
+  font-size: 2vmax;
+  color: #333;
+  margin-top: 2vmax;
+}
+
+.aboutText {
+  font-size: 1.2vmax;
+  color: #444;
+  margin: 1vmax 0;
+}
+
+.aboutList {
+  list-style: none;
+  padding: 0;
+  margin: 1vmax 0;
+}
+
+.aboutList li {
+  font-size: 1.1vmax;
+  margin: 0.5vmax 0;
+  color: #555;
+}
+
+.highlight {
+  color: #28c74f;
+  font-weight: bold;
+}

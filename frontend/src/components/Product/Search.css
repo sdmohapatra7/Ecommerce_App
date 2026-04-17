@@ -28,7 +28,7 @@
 .searchBox > input[type="submit"] {
   height: 8%;
   border-radius: 0%;
-  background-color: tomato;
+  background-color: rgb(58, 221, 9);
   border: none;
   padding: 1vmax;
   width: 10%;

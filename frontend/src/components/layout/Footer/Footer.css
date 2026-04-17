@@ -1,73 +1,147 @@
-footer {
-  margin-top: 10vmax;
+/* ===== Footer Container ===== */
+#footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* allow wrapping on smaller screens */
+  background: #f8f8f8; /* light bg */
+  color: #242323;
+  border-top: 1px solid #ddd;
   padding: 2vmax;
-  background-color: rgb(34, 33, 33);
-  color: white;
-  display: flex;
-  align-items: center;
+  box-sizing: border-box;
 }
 
-.leftFooter {
-  width: 20%;
-  display: flex;
+/* ===== Common Column Styles ===== */
+.leftFooter,
+.midFooter {
+  width: 35%;
+}
+.rightFooter,
+.fourthFooter {
+  width: 15%;
+}
 
+.leftFooter,
+.midFooter,
+.rightFooter,
+.fourthFooter {
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* text starts from left */
+  text-align: left;
+  padding: 1vmax;
+  box-sizing: border-box;
 }
+
+/* ===== Left Column ===== */
 .leftFooter > h4 {
-  font-family: "Roboto";
-  font-size: 1vmax;
+  font-size: 1.4vmax;
+  font-weight: 600;
+  margin-bottom: 0.8vmax;
+  color: rgb(9, 211, 26);
 }
 .leftFooter > p {
-  text-align: center;
-  font-size: 1.2vmax;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.leftFooter > img {
-  width: 10vmax;
-  margin: 1vmax;
-  cursor: pointer;
+  font-size: 1.1vmax;
+  margin-top: 0.5vmax;
+  line-height: 1.5;
+  color: #444;
 }
 
-.midFooter {
-  width: 60%;
-
-  text-align: center;
-}
-
-.midFooter > h1 {
-  font-size: 4vmax;
-  font-family: "Roboto";
-  color: #eb4034;
+/* ===== Middle Column ===== */
+.footerLogo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 0.8vmax;
 }
 .midFooter > p {
-  max-width: 60%;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  margin: 1vmax auto;
+  max-width: 90%;
+  margin-top: 0.5vmax;
+  text-align: left;
+  line-height: 1.5;
+  font-size: 1.1vmax;
+  color: #444;
 }
 
-.rightFooter {
-  width: 20%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.rightFooter > h4 {
-  font-family: "Roboto";
+/* ===== Right & Fourth Columns ===== */
+.rightFooter > h4,
+.fourthFooter > h4 {
   font-size: 1.4vmax;
-  text-decoration: underline;
-}
-.rightFooter > a {
-  text-decoration: none;
-  font-size: 1.3vmax;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: white;
-  transition: all 0.5s;
-  margin: 0.5vmax;
+  font-weight: 600;
+  margin-bottom: 0.8vmax;
+  color: rgb(9, 211, 26);
 }
 
-.rightFooter > a:hover {
-  color: #eb4034;
+.rightFooter > a,
+.fourthFooter > a {
+  text-decoration: none;
+  font-size: 1.1vmax;
+  color: rgb(36, 35, 35);
+  transition: all 0.3s;
+  margin: 0.4vmax 0;
+}
+
+.rightFooter > a:hover,
+.fourthFooter > a:hover {
+  color: #28c74f;
+  padding-left: 5px;
+}
+
+/* ===== Responsive Breakpoints ===== */
+
+/* Tablet (max-width: 1024px) → 2 columns per row */
+@media screen and (max-width: 1024px) {
+  .leftFooter,
+  .midFooter,
+  .rightFooter,
+  .fourthFooter {
+    width: 45%; /* 2 per row */
+    margin-bottom: 2vmax; /* spacing between rows */
+  }
+}
+
+/* Mobile (max-width: 600px) → stack 1 per row */
+@media screen and (max-width: 600px) {
+  #footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 2vmax 1vmax;
+  }
+
+  .leftFooter,
+  .midFooter,
+  .rightFooter,
+  .fourthFooter {
+    width: 100%; /* full width */
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2vmax; /* spacing between columns */
+  }
+
+  .footerLogo {
+    width: 120px; /* slightly bigger logo for mobile */
+    margin-bottom: 1vmax;
+  }
+
+  .leftFooter > h4,
+  .midFooter > h4,
+  .rightFooter > h4,
+  .fourthFooter > h4 {
+    font-size: 1.5rem; /* readable size */
+    margin-bottom: 0.8rem;
+  }
+
+  .leftFooter > p,
+  .midFooter > p,
+  .rightFooter > a,
+  .fourthFooter > a {
+    font-size: 1rem; /* consistent size */
+    margin: 0.3rem 0;
+    line-height: 1.6;
+  }
+
+  .rightFooter > a,
+  .fourthFooter > a {
+    display: inline-block;
+    padding: 0.2rem 0; /* spacing between links */
+  }
 }

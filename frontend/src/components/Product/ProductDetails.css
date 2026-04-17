@@ -1,34 +1,49 @@
+/* ---------- Product Details ---------- */
 .ProductDetails {
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   width: 100vw;
   max-width: 100%;
-  padding: 6vmax;
+  padding: 4vmax;
   box-sizing: border-box;
   display: flex;
+  gap: 3vmax; /* space between carousel and details */
 }
 
-.ProductDetails > div {
+/* Left: Carousel */
+.carouselContainer {
+  flex: 0 0 380px;     /* fixed base width */
+  max-width: 40%;      /* never more than 40% */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productSwiper {
   width: 100%;
+  height: 400px;
+  padding-bottom: 24px; /* for pagination dots */
+}
+
+.productSlideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+/* Right: Details */
+.ProductDetailsRight {
+  flex: 1;  /* take all remaining space */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 2vmax;
-  box-sizing: border-box;
-  border: 1px solid white;
+  justify-content: flex-start;
 }
 
-.ProductDetails > div:last-child {
-  align-items: flex-start;
-}
-
-.CarouselImage {
-  width: 20vmax;
-}
-
+/* ---------- Details Blocks ---------- */
 .detailsBlock-1 > h2 {
   color: rgb(54, 54, 54);
-  font: 600 1.6vmax "Roboto";
+  font: 600 1.6vmax;
 }
 
 .detailsBlock-1 > p {
@@ -42,7 +57,7 @@
   align-items: center;
   border-top: 1px solid rgba(0, 0, 0, 0.205);
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-  width: 70%;
+  width: 100%;
   padding: 1vmax 0;
 }
 
@@ -52,39 +67,56 @@
 }
 
 .detailsBlock-3 {
-  width: 70%;
+  width: 100%;
 }
 
 .detailsBlock-3 > h1 {
   color: rgba(17, 17, 17, 0.795);
-  font: 400 1.8vmax "Franklin Gothic Medium";
+  font: 400 1.8vmax;
   margin: 1vmax 0;
 }
+
 .detailsBlock-3-1 {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.detailsBlock-3-1-1 {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  width: max-content;
 }
 
 .detailsBlock-3-1-1 > button {
+  width: 2.5rem;
+  height: 2.5rem;
   border: none;
-  background-color: rgba(0, 0, 0, 0.616);
-  padding: 0.5vmax;
-  cursor: pointer;
+  background-color: rgb(9, 211, 26);
   color: white;
-  transition: all 0.5s;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
 }
+
 .detailsBlock-3-1-1 > button:hover {
-  background-color: rgba(0, 0, 0, 0.767);
+  background-color: #048119;
 }
 
 .detailsBlock-3-1-1 > input {
-  border: none;
-  padding: 0.5vmax;
-  width: 1vmax;
+  width: 3rem;
+  height: 2.5rem;
   text-align: center;
+  border: none;
   outline: none;
-  font: 400 0.8vmax "Roboto";
-  color: rgba(0, 0, 0, 0.74);
+  font-size: 1rem;
+  color: #000;
 }
 
 .detailsBlock-3-1 > button:last-child {
@@ -92,16 +124,16 @@
   cursor: pointer;
   color: white;
   transition: all 0.5s;
-  background-color: tomato;
-  font: 500 0.7vmax "Roboto";
-  border-radius: 20px;
-  padding: 0.5vmax 2vmax;
+  background-color: rgb(9, 211, 26);
+  font: 500 0.9vmax;
+  border-radius: 5px;
+  padding: 0.9vmax 2vmax;
   margin: 1vmax;
   outline: none;
 }
 
 .detailsBlock-3-1 > button:last-child:hover {
-  background-color: rgb(214, 84, 61);
+  background-color: #048119;
 }
 
 .detailsBlock-3 > p {
@@ -109,52 +141,75 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
   padding: 1vmax 0;
   color: rgba(0, 0, 0, 0.651);
-  font: 400 1vmax "Roboto";
+  font: 400 1vmax ;
   margin: 1vmax 0;
 }
 
 .detailsBlock-4 {
   color: rgba(0, 0, 0, 0.897);
-  font: 500 1.2vmax sans-serif;
+  font: 500 1.2vmax;
 }
 
 .detailsBlock-4 > p {
   color: rgba(0, 0, 0, 0.534);
-  font: 300 0.8vmax sans-serif;
+  font: 300 0.8vmax;
 }
 
-.submitReview {
-  border: none;
-  background-color: tomato;
-  font: 500 0.7vmax "Roboto";
-  border-radius: 20px;
-  padding: 0.6vmax 2vmax;
-  margin: 1vmax 0;
-  color: white;
-  cursor: pointer;
-  transition: all 0.5s;
-  outline: none;
-}
-.submitReview:hover {
-  background-color: rgb(197, 68, 45);
-  transform: scale(1.1);
-}
-
-.submitDialog {
+/* ---------- Submit Review ---------- */
+.submitReviewContainer {
+  width: 100%;
+  margin-top: 3vmax;
   display: flex;
   flex-direction: column;
-}
-.submitDialogTextArea {
-  border: 1px solid rgba(0, 0, 0, 0.082);
-  margin: 1vmax 0;
-  outline: none;
-  padding: 1rem;
-  font: 300 1rem "Roboto";
+  align-items: flex-start;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 2vmax;
 }
 
+.submitReviewContainer h3 {
+  font: 500 1.2vmax;
+  margin-bottom: 1vmax;
+  color: rgba(0,0,0,0.8);
+}
+
+.submitReviewContainer textarea {
+  width: 100%;
+  min-height: 6vmax;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 1vmax;
+  font: 400 0.9vmax;
+  resize: none;
+  margin-bottom: 1vmax;
+  outline: none;
+}
+
+.submitReviewContainer textarea:focus {
+  border-color: rgb(9, 211, 26);
+  box-shadow: 0 0 5px rgba(9,211,26,0.3);
+}
+
+.submitReviewContainer button {
+  border: none;
+  background-color: rgb(9, 211, 26);
+  color: white;
+  padding: 0.9vmax 2vmax;
+  font: 500 0.9vmax;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s all;
+  outline: none;
+}
+
+.submitReviewContainer button:hover {
+  transform: scale(1.05);
+  background-color: rgb(7, 180, 22);
+}
+
+/* ---------- Reviews ---------- */
 .reviewsHeading {
   color: #000000be;
-  font: 500 1.4vmax "Roboto";
+  font: 500 1.4vmax;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.226);
   padding: 1vmax;
@@ -162,50 +217,104 @@
   margin: auto;
   margin-bottom: 4vmax;
 }
+
 .reviews {
   display: flex;
-  overflow: auto;
+  flex-wrap: wrap;
+  gap: 2vmax;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 2vmax;
 }
 
+/* Smaller Review Cards */
 .reviewCard {
-  flex: none;
+    flex: none;
+    width: auto;
+    padding: 2vmax;
+    margin: 1vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background-color: #fff;
+    gap: 1vmax;
+}
 
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
-  border: 1px solid rgba(56, 56, 56, 0.116);
-  width: 30vmax;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1vmax;
-  padding: 3vmax;
-}
 .reviewCard > img {
-  width: 5vmax;
+  width: 4vmax;
+  border-radius: 50%;
 }
+
 .reviewCard > p {
-  color: rgba(0, 0, 0, 0.836);
-  font: 600 0.9vmax "Roboto";
+  font: 500 0.9vmax;
+  color: rgba(0,0,0,0.8);
+  margin-bottom: 0.5vmax;
+  text-align: center;
 }
+
 .reviewCardComment {
-  color: rgba(0, 0, 0, 0.445);
-  font: 300 0.8vmax cursive;
+  font: 300 0.8vmax;
+  color: rgba(0,0,0,0.6);
+  text-align: center;
 }
 
 .noReviews {
-  font: 400 1.3vmax "Gill Sans";
+  font: 400 1.3vmax;
   text-align: center;
   color: rgba(0, 0, 0, 0.548);
 }
 
-@media screen and (max-width: 600px) {
+/* ---------- Swiper Navigation ---------- */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #333 !important;
+  background: rgba(255,255,255,0.9);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 16px !important;
+}
+
+/* Dots */
+.swiper-pagination-bullet {
+  background: #bbb;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #333;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 900px) {
   .ProductDetails {
     flex-direction: column;
-    height: unset;
+    gap: 2vmax;
   }
 
-  .ProductDetails > div:last-child {
-    align-items: center;
+  .carouselContainer {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
   }
+
+  .productSwiper {
+    height: 300px;
+  }
+
+  .ProductDetailsRight {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .productSwiper { height: 240px; }
 
   .detailsBlock-1 > h2 {
     font-size: 2.8vmax;
@@ -225,7 +334,7 @@
   }
 
   .detailsBlock-3 > h1 {
-    font: 700 3vmax "Franklin Gothic Medium";
+    font: 700 3vmax;
     text-align: center;
   }
 
@@ -234,51 +343,199 @@
   }
 
   .detailsBlock-3-1-1 {
-    padding: 2vmax 0;
+    /* padding: 1rem 0; */
+    gap: 0.3rem;
   }
+
   .detailsBlock-3-1-1 > button {
-    padding: 1.2vmax;
-    width: 4vmax;
+    padding: 0.8rem;
+    width: 3rem;
+    font-size: 1rem;
   }
 
   .detailsBlock-3-1-1 > input {
-    padding: 1.5vmax;
-    width: 3vmax;
-    font: 400 1.8vmax "Roboto";
+    padding: 0.6rem;
+    width: 2.5rem;
+    font-size: 1rem;
   }
 
   .detailsBlock-3-1 > button:last-child {
-    font: 500 1.7vmax "Roboto";
+    font: 500 1.7vmax;
     padding: 1.5vmax;
-    width: 20vmax;
+    width: 90%;
     margin: 3vmax 0;
   }
 
   .detailsBlock-3 > p {
     padding: 2.5vmax 0;
     text-align: center;
-    font: 400 2vmax "Roboto";
+    font: 400 2vmax;
   }
 
   .detailsBlock-4 {
-    font: 500 2.5vmax sans-serif;
+    font: 500 2.5vmax;
   }
 
   .detailsBlock-4 > p {
-    font: 300 1.8vmax sans-serif;
+    font: 300 1.8vmax;
   }
 
-  .submitReview {
-    font: 500 1.7vmax "Roboto";
-    padding: 1.5vmax;
-    width: 20vmax;
-    margin: 3vmax 0;
+  .submitReviewContainer {
+    width: 100%;
+    align-items: center;
+  }
+
+  .submitReviewContainer h3 {
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .submitReviewContainer textarea {
+    font-size: 3vw;
+    min-height: 10vw;
+  }
+
+  .submitReviewContainer button {
+    font-size: 3vw;
+    padding: 2vw 5vw;
+    width: 90%;
+  }
+
+  .reviewCard {
+    width: 40vw;
+    padding: 4vw;
+  }
+
+  .reviewCard > img {
+    width: 10vw;
   }
 
   .reviewCard > p {
-    font: 600 3vw "Roboto";
+    font-size: 4vw;
   }
+
   .reviewCardComment {
-    font: 300 5vw cursive;
+    font-size: 3.5vw;
   }
+}
+.popupOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+}
+
+.popupContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.popupActions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btnPrimary {
+  background: rgba(9, 211, 26, 0.9);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnSecondary {
+  background: #ccc;
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnDanger {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reviewWrapper {
+  /* border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px; */
+  margin-bottom: 10px;
+}
+
+.reviewActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-direction: row-reverse;
+}
+
+.btnSmall {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Textarea styles only for popup */
+.popupContent textarea {
+  width: 100%;
+  min-height: 100px;          /* good default height for popup input */
+  max-height: 240px;          /* prevent huge boxes */
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  /* font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial; */
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #111;
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;           /* allow vertical resize only; change to none to disable */
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus state */
+.popupContent textarea:focus {
+  border-color: rgba(9, 211, 26, 0.9);   /* green highlight */
+  box-shadow: 0 6px 18px rgba(9,211,26,0.12);
+  transform: translateY(-0.5px);
+}
+
+/* Placeholder styling */
+.popupContent textarea::placeholder {
+  color: rgba(0,0,0,0.42);
+  font-style: italic;
+}
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .popupContent textarea {
+    min-height: 120px;
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+
+/* Popup action buttons alignment */
+.popupActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
 }

@@ -35,6 +35,19 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:[true,"please Enter Product Category"]
     },
+    gst: {   // GST field for Indian tax
+        type: Number,
+        // required: true,
+        default: 18, // default 18% GST
+        min: [0, "GST can't be negative"],
+        max: [28, "GST can't exceed 28%"] // Max slab in India
+    },
+    hsn: {   // 👈 HSN Code for GST invoice
+        type: String,
+        // required: [true, "Please Enter HSN Code"],
+        maxLength: [8, "HSN Code can't exceed 8 digits"],
+        minLength: [4, "HSN Code must be at least 4 digits"]
+    },
     stock:{
         type:Number,
         required:[true,"Please enter Product Stock"],

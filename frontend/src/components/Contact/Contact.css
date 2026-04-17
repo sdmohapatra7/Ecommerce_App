@@ -1,0 +1,61 @@
+.contactContainer {
+  max-width: 700px;
+  margin: 3vmax auto;
+  padding: 2vmax;
+}
+
+.contactTitle {
+  text-align: center;
+  font-size: 3vmax;
+  color: #28c74f;
+  margin-bottom: 1vmax;
+}
+
+.contactSubtitle {
+  text-align: center;
+  font-size: 1.2vmax;
+  color: #555;
+  margin-bottom: 2vmax;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactForm input,
+.contactForm textarea {
+  padding: 1vmax;
+  margin-bottom: 1vmax;
+  font-size: 1.1vmax;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+.contactForm textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contactForm button {
+  padding: 1vmax;
+  font-size: 1.2vmax;
+  background-color: #28c74f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contactForm button:hover {
+  background-color: #1ea63a;
+}
+
+.successMessage {
+  margin-top: 1vmax;
+  color: #28c74f;
+  text-align: center;
+  font-weight: 500;
+}

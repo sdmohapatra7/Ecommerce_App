@@ -1,0 +1,58 @@
+/* Shipping.css */
+
+.shippingContainer {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shippingContainer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px;
+}
+
+.shippingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.shippingForm input,
+.shippingForm select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.shippingForm input:focus,
+.shippingForm select:focus {
+  border-color: #09d31a; /* highlight color */
+}
+
+.shippingForm button {
+  background-color: #09d31a;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.shippingForm button:hover {
+  background-color: #09d31a;
+  transform: translateY(-2px);
+}
+
+.shippingForm button:active {
+  transform: translateY(0);
+}

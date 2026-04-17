@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
-import Product from './ProductCard.js';
+import Product from './ProductCard';
 import MetaData from '../layout/MetaData';
 
-import { getProduct,clearErrors } from '../../actions/productAction';
+import { getProducts } from "../../features/productAction";
+import { clearErrors } from "../../features/productSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
-import { useAlert } from 'react-alert';
+import { toast } from 'react-toastify';
 
 
 // const product = {
@@ -17,7 +18,7 @@ import { useAlert } from 'react-alert';
 //     _id:'shakti'
 // }
 export default function Home() {
-    const alert = useAlert();
+    
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector(
         (state) => state.products
@@ -25,20 +26,20 @@ export default function Home() {
 
     useEffect(() => {
         if(error){
-            alert.error(error);
+            toast.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProduct());
-    }, [dispatch,error,alert]);
+        dispatch(getProducts({}));
+    }, [dispatch,error]);
     return (
         <>
             {loading ? (
                 <Loader/>
             ) : (
                 <>
-                    <MetaData title='Ecommerce' />
+                    <MetaData title='ESmart' />
                     <div className="banner">
-                        <p>Welcome to Ecommerce</p>
+                        <p>Welcome to ESmart</p>
                         <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
                         <a href="#container">

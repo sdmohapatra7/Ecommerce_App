@@ -1,5 +1,7 @@
 require('dotenv').config({path:'backend/.env'});
 const app = require('./app');
+const PORT = process.env.PORT || 4000; // make sure PORT in .env matches
+const HOST = process.env.HOST || '0.0.0.0';
 //handle Uncaught exception
 process.on("uncaughtException",(err)=>{
     console.log(`Error: ${err.message}`);
@@ -10,8 +12,9 @@ process.on("uncaughtException",(err)=>{
 const connectDataase = require('./config/database');
 connectDataase();
 
-const server = app.listen(process.env.PORT,()=>{
-    console.log(`server is working on http:/localhost:${process.env.PORT}`);
+const server = app.listen(PORT,HOST,()=>{
+    // console.log(`server is working on http:/localhost:${process.env.PORT}`);
+    console.log(`Server is running at http://${HOST}:${PORT}`);
 });
 
 //unhandle promise rejection
