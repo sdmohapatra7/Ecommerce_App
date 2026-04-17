@@ -39,7 +39,7 @@ Payments: Stripe / Razorpay
 
 Getting Started:
 # Clone repo
-git clone https://github.com/your-username/esmart-ecommerce.git
+git clone https://github.com/sdmohapatra7/esmart-ecommerce.git
 
 # Install dependencies
 cd esmart-ecommerce
